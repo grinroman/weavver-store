@@ -1,0 +1,26 @@
+@import "src/scss/mixins.scss";
+
+.root {
+    @include breakpoint("tablet") {
+        display: block;
+    }
+
+    @include breakpoint("desktop") {
+        width: 100%;
+        padding-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__logo {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 26px;
+        align-items: center;
+
+        @include breakpoint("tablet") {
+            margin-bottom: 16px;
+        }
+    }
+}

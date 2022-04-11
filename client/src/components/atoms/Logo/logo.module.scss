@@ -1,0 +1,44 @@
+@import "src/scss/mixins.scss";
+
+.root {
+    display: flex;
+    width: 84px;
+    align-items: center;
+    justify-content: space-between;
+
+    @include breakpoint("desctop") {
+        margin-left: 0px;
+    }
+
+    &__logoSvg {
+        width: 40px;
+        transform: scale(1.2);
+        height: 32px;
+        scale: 1.8;
+        margin-right: 20px;
+
+        @include breakpoint("desktop") {
+            width: 50px;
+            height: 40px;
+        }
+    }
+
+    &__logoText {
+        width: 40px;
+        height: 27px;
+        transform: scale(1.6);
+
+        @include breakpoint("desktop") {
+            width: 49px;
+            height: 34px;
+        }
+    }
+
+    @include breakpoint("tablet") {
+        width: 82px;
+    }
+
+    @include breakpoint("desktop") {
+        width: 110px;
+    }
+}

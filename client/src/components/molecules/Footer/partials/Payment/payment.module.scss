@@ -1,0 +1,40 @@
+@import "src/scss/mixins";
+
+.root {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+
+    @include breakpoint("tablet") {
+        width: auto;
+    }
+
+    &__six {
+        height: 24px;
+        margin-bottom: 10px;
+
+        @include breakpoint("tablet") {
+            height: 22px;
+        }
+
+        @include breakpoint("desktop") {
+            height: 30px;
+        }
+    }
+
+    &__image {
+        margin-right: 5px;
+        margin-left: 5px;
+        height: 14px;
+
+        @include breakpoint("tablet") {
+            height: 16px;
+        }
+
+        @include breakpoint("desktop") {
+            height: 20px;
+        }
+    }
+}

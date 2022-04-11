@@ -1,0 +1,72 @@
+$am-font-family: "Nunito Sans";
+
+$am-containers: (
+    mobile: calc(100% - 32px),
+    tablet: calc(100% - 48px),
+    desktop: 1264px,
+);
+
+$am-breakpoints: (
+    desktop: 1300px,
+    tablet: 768px,
+    mobile: 320px,
+);
+
+$am-colors: (
+    paragraph: (
+        base: #ffffff,
+        secondary: #eca0ff,
+    ),
+    background: (
+        base: #14100b,
+        secondary: #1f1322,
+    ),
+    primary: (
+        base: #7800e9,
+        secondary: #6600c6,
+    ),
+    shadow: (
+        base: rgba(242, 0, 255, 0.2),
+        secondary: rgba(255, 255, 255, 0.2),
+    ),
+    secondary: (
+        base: #14100b,
+    ),
+    accent: (
+        base: #f7f4f2,
+    ),
+    crossed: (
+        base: #c2b8b3,
+    ),
+    grey: (
+        base: #c2b8b3,
+    ),
+    body-0: (
+        base: #ffffff,
+    ),
+);
+
+// $am-backgrounds: (
+//     orng: (
+//         base: #fc8719,
+//         shadow: rgba(248, 197, 16, 0.24),
+//     ),
+//     blu: (
+//         base: #3772e4,
+//         shadow: rgba(55, 114, 228, 0.24),
+//     ),
+//     pinky: (
+//         base: #e93576,
+//         shadow: rgba(233, 53, 118, 0.24),
+//     ),
+//     ylow: (
+//         base: #f8c510,
+//         shadow: rgba(248, 197, 16, 0.24),
+//     ),
+//     orngblur: (
+//         base: #ff9a3d,
+//         shadow: rgba(252, 135, 25, 0.32),
+//     ),
+// );
+
+$am-transition-time: 0.4s;

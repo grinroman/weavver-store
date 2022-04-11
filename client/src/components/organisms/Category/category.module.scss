@@ -1,0 +1,30 @@
+@import "src/scss/mixins";
+
+.root {
+    padding: 60px 0 0 0;
+    margin: 4px;
+    &__grid {
+        margin: 60px 0;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; //!!justify-content: center;
+        align-items: stretch;
+        gap: 8px;
+        min-height: 600px;
+
+        @include breakpoint("desktop") {
+            justify-content: flex-start;
+            gap: 16px;
+        }
+    }
+
+    &__line {
+        border: 1px solid get-color(background, base);
+        background-color: get-color(background, base);
+    }
+
+    &.last {
+        padding: 60px 0;
+    }
+}

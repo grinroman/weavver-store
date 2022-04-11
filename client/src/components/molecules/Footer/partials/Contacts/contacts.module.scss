@@ -1,0 +1,71 @@
+@import "src/scss/mixins.scss";
+
+.root {
+    display: flex;
+
+    &__name {
+        margin-right: 16px;
+    }
+
+    &__info {
+        position: relative;
+
+        &__link {
+            text-decoration: underline #f2eae4;
+            text-underline-position: under;
+
+            @include breakpoint("desktop") {
+                margin-left: 5px;
+            }
+        }
+
+        @include breakpoint("desktop") {
+            :first-child {
+                &::before {
+                    display: none;
+                }
+            }
+            display: flex;
+        }
+
+        @include breakpoint("tablet") {
+            top: 0px;
+            position: relative;
+        }
+    }
+
+    &__contacts {
+        margin-top: 8px;
+
+        @include breakpoint("desktop") {
+            margin-top: 0px;
+        }
+
+        &::before {
+            @include breakpoint("desktop") {
+                content: "\2022";
+                color: #c2b8b3ed;
+                font-weight: 500;
+                opacity: 0.5;
+                display: inline-block;
+                width: 2px;
+                margin: 0 6px;
+            }
+        }
+    }
+
+    &__email {
+        @include breakpoint("desktop") {
+            display: flex;
+        }
+    }
+
+    @include breakpoint("tablet") {
+        padding-bottom: 15px;
+    }
+
+    @include breakpoint("desktop") {
+        justify-content: space-between;
+        align-items: center;
+    }
+}

@@ -1,0 +1,31 @@
+@import "src/scss/mixins";
+@import "src/scss/variables";
+
+.root {
+    background: get-color(paragraph, base);
+    border-radius: 2px;
+    height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+    background: #1f1322;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: inset 10px 0px 40px 0px rgba(255, 255, 255, 0.1);
+    }
+
+    &__header {
+        margin: 15px 0px;
+    }
+
+    @include breakpoint("desktop") {
+        height: 300px;
+    }
+
+    img {
+        width: 80%;
+    }
+}

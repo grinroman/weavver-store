@@ -1,0 +1,20 @@
+@import "src/scss/mixins.scss";
+
+.root {
+    display: block;
+    &__links {
+        display: block;
+        margin-right: 40px;
+        margin-top: 12px;
+        @include breakpoint("desktop") {
+            display: inline;
+            margin-right: 40px;
+        }
+    }
+
+    @include breakpoint("desktop") {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+    }
+}

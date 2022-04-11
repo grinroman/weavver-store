@@ -1,0 +1,19 @@
+[
+    { "type": "Все товары", "enable": true },
+    {
+        "type": "Одежда",
+        "enable": false
+    },
+    {
+        "type": "Распродажа",
+        "enable": false
+    },
+    {
+        "type": "Новинки",
+        "enable": false
+    },
+    {
+        "type": "Аксессуары",
+        "enable": false
+    }
+]
