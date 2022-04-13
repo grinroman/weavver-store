@@ -3,16 +3,21 @@ import React from 'react';
 import { Container } from 'src/components/templates/Container';
 import { Header } from 'src/components/molecules/Header';
 import Head from 'next/head';
+import { Footer } from 'src/components/molecules/Footer';
 
-const Catalog: NextPage = () => {
+const Product: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Weavver · Одежда</title>
+                <title>Weavver · Покупка</title>
             </Head>
             <Header />
+            <Container>
+                <h1>Страница товара</h1>
+            </Container>
+            <Footer />
         </>
     );
 };
 
-export default Catalog;
+export default Product;

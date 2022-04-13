@@ -7,12 +7,10 @@ export type CategoryProps = {
     children: React.ReactNode;
 };
 
-export const CatalogList = forwardRef<HTMLDivElement, CategoryProps>(
-    ({ children }) => {
-        return (
-            <section className={styles.root}>
-                <div className={styles.root__grid}>{children}</div>
-            </section>
-        );
-    }
-);
+export const CatalogList: React.FC<CategoryProps> = ({ children }) => {
+    return (
+        <div className={styles.root}>
+            <ul className={styles.root__grid}>{children}</ul>
+        </div>
+    );
+};

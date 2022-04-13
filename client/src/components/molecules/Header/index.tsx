@@ -5,6 +5,7 @@ import styles from './header.module.scss';
 import { Typography } from 'src/components/atoms/Typography';
 import Link from 'next/link';
 import { Logo } from 'src/components/atoms/Logo';
+import { Basket } from 'src/components/atoms/Basket';
 import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
 
 export type HeaderProps = {
@@ -90,140 +91,138 @@ export const Header: React.FC<HeaderProps> = ({
         <>
             <header className={styles.root}>
                 {isMobile && ( //кнопка бургер меню для ТЕЛЕФОНА
-                    <button
-                        className={styles.root__burger}
-                        onClick={() => burgerHandler()}
-                    >
-                        <span
-                            className={clsx(
-                                styles.root__burger__line1,
-                                isBurger && styles['active']
-                            )}
-                        />
-                        <span
-                            className={clsx(
-                                styles.root__burger__line2,
-                                isBurger && styles['active']
-                            )}
-                        />
-                    </button>
+                    <div className={styles.root__mobilebtnwrapper}>
+                        <button
+                            className={styles.root__burger}
+                            onClick={() => burgerHandler()}
+                        >
+                            <span
+                                className={clsx(
+                                    styles.root__burger__line1,
+                                    isBurger && styles['active']
+                                )}
+                            />
+                            <span
+                                className={clsx(
+                                    styles.root__burger__line2,
+                                    isBurger && styles['active']
+                                )}
+                            />
+                        </button>
+                        <Basket />
+                    </div>
                 )}
-                {!isMobile &&
-                    !isTablet && ( //навигация по ГЛАВНОЙ странице для ПК
-                        <nav className={styles.root__nav}>
-                            {router.asPath === '/' ? (
-                                <>
-                                    <button
-                                        onClick={() => {
-                                            scrollTo(popularRef!.current);
-                                        }}
-                                        className={clsx(
-                                            styles.root__tab,
+                {!isMobile && ( //навигация по ГЛАВНОЙ странице для ПК
+                    <nav className={styles.root__nav}>
+                        {router.asPath === '/' ? (
+                            <>
+                                <button
+                                    onClick={() => {
+                                        scrollTo(popularRef!.current);
+                                    }}
+                                    className={clsx(
+                                        styles.root__tab,
+                                        activeTab === 'right'
+                                            ? styles['active']
+                                            : styles['inactive']
+                                    )}
+                                >
+                                    <Typography
+                                        preset="tab"
+                                        color={
                                             activeTab === 'right'
-                                                ? styles['active']
-                                                : styles['inactive']
-                                        )}
-                                    >
-                                        <Typography
-                                            preset="tab"
-                                            color={
-                                                activeTab === 'right'
-                                                    ? 'paragraph'
-                                                    : 'primary'
-                                            }
-                                        >
-                                            Популярное
-                                        </Typography>
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            scrollTo(categoryRef!.current);
-                                        }}
-                                        className={clsx(
-                                            styles.root__tab,
-                                            activeTab === 'value'
-                                                ? styles['active']
-                                                : styles['inactive']
-                                        )}
-                                    >
-                                        <Typography
-                                            preset="tab"
-                                            color={
-                                                activeTab === 'value'
-                                                    ? 'paragraph'
-                                                    : 'primary'
-                                            }
-                                        >
-                                            Категории
-                                        </Typography>
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            scrollTo(aboutusRef!.current);
-                                        }}
-                                        className={clsx(
-                                            styles.root__tab,
-                                            activeTab === 'key'
-                                                ? styles['active']
-                                                : styles['inactive']
-                                        )}
-                                    >
-                                        <Typography
-                                            preset="tab"
-                                            color={
-                                                activeTab === 'key'
-                                                    ? 'paragraph'
-                                                    : 'primary'
-                                            }
-                                        >
-                                            О компании
-                                        </Typography>
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            scrollTo(contactusRef!.current);
-                                        }}
-                                        className={clsx(
-                                            styles.root__tab,
-                                            activeTab === 'other'
-                                                ? styles['active']
-                                                : styles['inactive']
-                                        )}
-                                    >
-                                        <Typography
-                                            preset="tab"
-                                            color={
-                                                activeTab === 'other'
-                                                    ? 'paragraph'
-                                                    : 'primary'
-                                            }
-                                        >
-                                            Связаться
-                                        </Typography>
-                                    </button>
-                                </>
-                            ) : (
-                                <Link href="/">
-                                    <a
-                                        className={
-                                            styles.root__links__item__home
+                                                ? 'paragraph'
+                                                : 'primary'
                                         }
                                     >
-                                        <Typography
-                                            preset="common4"
-                                            color={
-                                                router.asPath === '/howto'
-                                                    ? 'paragraph'
-                                                    : 'body-0'
-                                            }
-                                        >
-                                            {`\< Магазин`}
-                                        </Typography>
-                                    </a>
-                                </Link>
-                            )}
-                        </nav>
-                    )}
+                                        Популярное
+                                    </Typography>
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        scrollTo(categoryRef!.current);
+                                    }}
+                                    className={clsx(
+                                        styles.root__tab,
+                                        activeTab === 'value'
+                                            ? styles['active']
+                                            : styles['inactive']
+                                    )}
+                                >
+                                    <Typography
+                                        preset="tab"
+                                        color={
+                                            activeTab === 'value'
+                                                ? 'paragraph'
+                                                : 'primary'
+                                        }
+                                    >
+                                        Категории
+                                    </Typography>
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        scrollTo(aboutusRef!.current);
+                                    }}
+                                    className={clsx(
+                                        styles.root__tab,
+                                        activeTab === 'key'
+                                            ? styles['active']
+                                            : styles['inactive']
+                                    )}
+                                >
+                                    <Typography
+                                        preset="tab"
+                                        color={
+                                            activeTab === 'key'
+                                                ? 'paragraph'
+                                                : 'primary'
+                                        }
+                                    >
+                                        О компании
+                                    </Typography>
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        scrollTo(contactusRef!.current);
+                                    }}
+                                    className={clsx(
+                                        styles.root__tab,
+                                        activeTab === 'other'
+                                            ? styles['active']
+                                            : styles['inactive']
+                                    )}
+                                >
+                                    <Typography
+                                        preset="tab"
+                                        color={
+                                            activeTab === 'other'
+                                                ? 'paragraph'
+                                                : 'primary'
+                                        }
+                                    >
+                                        Связаться
+                                    </Typography>
+                                </button>
+                            </>
+                        ) : (
+                            <Link href="/">
+                                <a className={styles.root__links__item__home}>
+                                    <Typography
+                                        preset="common4"
+                                        color={
+                                            router.asPath === '/howto'
+                                                ? 'paragraph'
+                                                : 'primary'
+                                        }
+                                    >
+                                        {`\< На главную`}
+                                    </Typography>
+                                </a>
+                            </Link>
+                        )}
+                    </nav>
+                )}
                 <Link href="/">
                     <a className={styles.root__logo}>
                         <Logo />
@@ -249,10 +248,10 @@ export const Header: React.FC<HeaderProps> = ({
                                     color={
                                         router.asPath === '/'
                                             ? 'paragraph'
-                                            : 'body-50'
+                                            : 'primary'
                                     }
                                 >
-                                    Магазин
+                                    На главную
                                 </Typography>
                             </a>
                         </Link>
@@ -349,6 +348,7 @@ export const Header: React.FC<HeaderProps> = ({
                                 </Typography>
                             </a>
                         </Link>
+                        <Basket />
                     </nav>
                 )}
             </header>

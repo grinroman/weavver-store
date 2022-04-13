@@ -8,6 +8,7 @@ import CategoryFilter from 'src/components/molecules/CategoryFilter';
 import { CatalogList } from 'src/components/organisms/CatalogList';
 import productListMock from 'src/mocks/productListMock.json';
 import ProductCard from 'src/components/molecules/ProductCard';
+import Link from 'next/link';
 
 const Catalog: NextPage = () => {
     return (
@@ -18,6 +19,7 @@ const Catalog: NextPage = () => {
             <Header />
             <Container>
                 <CategoryFilter />
+
                 <CatalogList>
                     {productListMock.map((product) => {
                         return (
@@ -26,6 +28,8 @@ const Catalog: NextPage = () => {
                                 title={product.title}
                                 price={product.price}
                                 shortDesc={product.shortDesc}
+                                sale={product.sale}
+                                id={product.id}
                             />
                         );
                     })}

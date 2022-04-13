@@ -7,8 +7,9 @@ type ProductCardProps = {
     imgSrc: string;
     title: string;
     price: number;
-    shortDesc: string;
+    shortDesc: any;
     sale?: number;
+    id: number;
 };
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -16,21 +17,59 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     title,
     shortDesc,
     sale,
+    price,
+    id,
 }) => {
     return (
-        <div className={styles.root}>
-            <img src={`/images/product-cards/${imgSrc}.jpg`} />
-            <div className={styles.root__header}>
-                <Typography preset="title3" color="body-0">
-                    {title}
-                </Typography>
-            </div>
-            <Typography preset="common5" color="body-0" align="center">
-                {shortDesc}
-            </Typography>
-
-            {}
-        </div>
+        <li key={id} className={styles.root}>
+            <a>
+                <img src={`/images/product-cards/${imgSrc}.jpg`} />
+                {sale ? (
+                    <div className={styles.root__saletag}>
+                        <Typography preset="common7" color="body-0">
+                            {sale}% off
+                        </Typography>
+                    </div>
+                ) : null}
+                <div className={styles.root__header}>
+                    <Typography preset="title3" color="body-0">
+                        {title}
+                    </Typography>
+                </div>
+                {/* <div className={styles.root__shortdescription}>
+                {shortDesc.map((descEl: string) => (
+                    <Typography preset="common5" color="body-0" align="center">
+                        {descEl}
+                        <br />
+                    </Typography>
+                ))}
+                </div> */}
+                <div
+                    className={clsx(
+                        styles.root__price,
+                        sale && styles['withsale']
+                    )}
+                >
+                    <Typography
+                        preset="common4"
+                        color={sale ? 'grey' : 'paragraph'}
+                        component="div"
+                        className={sale ? styles.root__crossed : undefined}
+                    >
+                        {price.toString() + '₽'}
+                    </Typography>
+                    {sale ? (
+                        <Typography
+                            preset="common4"
+                            color="paragraph"
+                            component="div"
+                        >
+                            {(price * (1 - sale / 100)).toString() + '₽'}
+                        </Typography>
+                    ) : null}
+                </div>
+            </a>
+        </li>
     );
 };
 

@@ -45,6 +45,13 @@
         }
     }
 
+    &__mobilebtnwrapper {
+        display: flex;
+        width: 30%;
+        align-items: center;
+        justify-content: space-between;
+    }
+
     &__burger {
         z-index: 10000;
         background-color: #f7f4f2;
@@ -53,6 +60,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
+        opacity: 0.7;
 
         &__menu {
             position: fixed;
@@ -131,6 +139,7 @@
         display: flex;
         justify-content: flex-end;
         flex: 1;
+        align-items: center;
 
         &__item {
             margin-top: 24px;

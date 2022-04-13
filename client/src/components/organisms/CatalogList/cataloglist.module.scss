@@ -2,16 +2,22 @@
 @import "src/scss/variables";
 
 .root {
-    margin: 10px;
+    margin-top: 14px;
+    @include breakpoint("tablet") {
+        margin-top: 20px;
+    }
     @include breakpoint("desktop") {
-        margin: 15px;
+        margin-top: 5px;
+        margin-right: 40px;
     }
 
     &__grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 10px;
-
+        @include breakpoint("tablet") {
+            grid-template-columns: repeat(3, 1fr);
+        }
         @include breakpoint("desktop") {
             grid-template-columns: repeat(4, 1fr);
         }

@@ -1,0 +1,32 @@
+@import "src/scss/mixins";
+@import "src/scss/variables";
+
+.root {
+    background: #fff;
+    transform: scale(1.7, 1.5);
+    top: 130px;
+    right: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+
+    @include breakpoint("tablet") {
+        top: 225px;
+        right: 27px;
+        transform: scale(2, 1.8);
+        position: absolute;
+    }
+
+    @include breakpoint("desktop") {
+        top: 225px;
+        right: 50px;
+        transform: scale(3, 2.6);
+    }
+
+    &:hover {
+        box-shadow: 0 0 11px get-color(shadow, secondary);
+    }
+}

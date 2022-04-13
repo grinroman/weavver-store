@@ -4,28 +4,85 @@
 .root {
     background: get-color(paragraph, base);
     border-radius: 2px;
-    height: 170px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px 0px;
-    background: #1f1322;
+    background: get-color(background, secondary);
     cursor: pointer;
+    position: relative;
+
+    @include breakpoint("tablet") {
+        height: 240px;
+    }
+
+    @include breakpoint("desktop") {
+        height: 320px;
+    }
 
     &:hover {
         box-shadow: inset 10px 0px 40px 0px rgba(255, 255, 255, 0.1);
     }
 
-    &__header {
-        margin: 15px 0px;
+    &__saletag {
+        text-align: center;
+        color: get-color(paragraph, base);
+        box-shadow: 0 0 20px #eee;
+        background-image: linear-gradient(to right, #000000 0%, #53346d 85%);
+        transition: 0.5s;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2px 4px;
+        border-radius: 3px;
+        top: 3%;
+        left: 67%;
+        overflow: hidden;
+
+        @include breakpoint("tablet") {
+            top: 2%;
+            left: 64%;
+        }
     }
 
-    @include breakpoint("desktop") {
-        height: 300px;
+    &__header {
+        margin: 8px 0px;
     }
 
     img {
-        width: 80%;
+        width: 60%;
+        @include breakpoint("tablet") {
+            width: 65%;
+        }
+        @include breakpoint("desktop") {
+            width: 70%;
+        }
+    }
+
+    &__crossed {
+        text-decoration: line-through;
+    }
+
+    &__price {
+        text-align: center;
+
+        &.withsale {
+            display: flex;
+            justify-content: space-between;
+            width: 55%;
+
+            @include breakpoint("tablet") {
+                width: 35%;
+            }
+        }
+    }
+
+    &__shortdescription p:not(:last-child) {
+        margin-bottom: 2px;
+        @include breakpoint("desktop") {
+            margin-bottom: 5px;
+        }
     }
 }

@@ -25,13 +25,13 @@
         line-height: 10px;
 
         @include breakpoint("tablet") {
-            font-size: 22px;
-            line-height: 22px;
+            font-size: 14px;
+            line-height: 14px;
         }
 
         @include breakpoint("desktop") {
-            font-size: 24px;
-            line-height: 24px;
+            font-size: 20px;
+            line-height: 20px;
         }
     }
 
@@ -81,6 +81,12 @@
         font-weight: 700;
         line-height: 8px;
 
+        @include breakpoint("tablet") {
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 10px;
+        }
+
         @include breakpoint("desktop") {
             font-size: 14px;
             font-weight: 800;
@@ -106,8 +112,8 @@
 
     &.common7 {
         font-weight: 600;
-        font-size: 12px;
-        line-height: 12px;
+        font-size: 8px;
+        line-height: 8px;
 
         @include breakpoint("tablet") {
             font-size: 13px;

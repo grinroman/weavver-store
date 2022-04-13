@@ -1,5 +1,5 @@
 [
-    { "type": "Все товары", "enable": true },
+{ "type": "Все товары", "enable": true },
     {
         "type": "Одежда",
         "enable": false

@@ -6,12 +6,17 @@
 
     &__buttonelement {
         height: 30px;
-        margin: 0px 10px;
         border-radius: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 3px 7px;
+
+        @include breakpoint("tablet") {
+            height: 40px;
+            width: 90px;
+            border-radius: 15px;
+        }
 
         @include breakpoint("desktop") {
             margin: 20px 40px;
@@ -29,10 +34,15 @@
         }
 
         &.inactive {
-            background: get-color(accent, base);
-            box-shadow: 0px 5px 10px get-color(shadow, secondary),
-                0px -5px 10px get-color(shadow, secondary),
-                inset 0 15px 15px get-color(shadow, base);
+            transition: all $am-transition-time ease-out;
+            background: get-color(body-0, base);
+            box-shadow: 0px 2px 10px get-color(shadow, secondary),
+                0px -2px 10px get-color(shadow, secondary);
+            &:hover {
+                box-shadow: 0px 5px 10px get-color(shadow, secondary),
+                    0px -5px 10px get-color(shadow, secondary),
+                    inset 0 15px 15px get-color(shadow, base);
+            }
         }
     }
 
