@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, forwardRef } from 'react';
 import styles from './productcard.module.scss';
 import productTypes from 'src/mocks/productTypes.json';
 import clsx from 'clsx';
 import { Typography } from 'src/components/atoms/Typography';
+import Link from 'next/link';
 type ProductCardProps = {
     imgSrc: string;
     title: string;
@@ -21,8 +22,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     id,
 }) => {
     return (
-        <li key={id} className={styles.root}>
-            <a>
+        <Link
+            href={{
+                pathname: `catalog/product/${id}`,
+                query: { productId: id },
+            }}
+            passHref
+        >
+            <a className={styles.root}>
                 <img src={`/images/product-cards/${imgSrc}.jpg`} />
                 {sale ? (
                     <div className={styles.root__saletag}>
@@ -69,7 +76,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                     ) : null}
                 </div>
             </a>
-        </li>
+        </Link>
     );
 };
 

@@ -19,9 +19,8 @@ const Catalog: NextPage = () => {
             <Header />
             <Container>
                 <CategoryFilter />
-
-                <CatalogList>
-                    {productListMock.map((product) => {
+                <CatalogList />
+                {/* {productListMock.map((product) => {
                         return (
                             <ProductCard
                                 imgSrc={product.imgSrc}
@@ -32,8 +31,8 @@ const Catalog: NextPage = () => {
                                 id={product.id}
                             />
                         );
-                    })}
-                </CatalogList>
+                    })} */}
+                {/* </CatalogList> */}
             </Container>
             <Footer />
         </>

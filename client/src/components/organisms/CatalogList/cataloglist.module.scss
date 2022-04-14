@@ -2,14 +2,8 @@
 @import "src/scss/variables";
 
 .root {
-    margin-top: 14px;
-    @include breakpoint("tablet") {
-        margin-top: 20px;
-    }
-    @include breakpoint("desktop") {
-        margin-top: 5px;
-        margin-right: 40px;
-    }
+    margin-top: 3vh;
+    margin-bottom: 3vh;
 
     &__grid {
         display: grid;

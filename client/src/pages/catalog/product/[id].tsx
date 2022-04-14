@@ -4,16 +4,21 @@ import { Container } from 'src/components/templates/Container';
 import { Header } from 'src/components/molecules/Header';
 import Head from 'next/head';
 import { Footer } from 'src/components/molecules/Footer';
+import { useRouter } from 'next/router';
+import ProductPage from 'src/components/organisms/ProductPage';
 
 const Product: NextPage = () => {
+    const router = useRouter();
+    const { productId } = router.query;
+
     return (
         <>
             <Head>
                 <title>Weavver · Покупка</title>
             </Head>
-            <Header />
+            <Header backTitle="< Вернуться к каталогу" backHref="/catalog" />
             <Container>
-                <h1>Страница товара</h1>
+                <ProductPage id={+productId!} />
             </Container>
             <Footer />
         </>

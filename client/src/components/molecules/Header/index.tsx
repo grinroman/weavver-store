@@ -15,6 +15,8 @@ export type HeaderProps = {
     contactusRef?: MutableRefObject<HTMLDivElement | null>;
     scrollTo?: any;
     setTitle?: any;
+    backTitle?: string;
+    backHref?: string | '/';
 };
 
 export type TabName = 'right' | 'value' | 'key' | 'other' | 'disabled';
@@ -26,7 +28,11 @@ export const Header: React.FC<HeaderProps> = ({
     contactusRef,
     scrollTo,
     setTitle,
+    backTitle,
+    backHref,
 }) => {
+    backTitle = backTitle || `\< На главную`;
+    backHref = backHref || '/';
     const router = useRouter();
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [isTablet, setIsTablet] = useState<boolean>(false);
@@ -206,7 +212,7 @@ export const Header: React.FC<HeaderProps> = ({
                                 </button>
                             </>
                         ) : (
-                            <Link href="/">
+                            <Link href={backHref}>
                                 <a className={styles.root__links__item__home}>
                                     <Typography
                                         preset="common4"
@@ -216,7 +222,7 @@ export const Header: React.FC<HeaderProps> = ({
                                                 : 'primary'
                                         }
                                     >
-                                        {`\< На главную`}
+                                        {backTitle}
                                     </Typography>
                                 </a>
                             </Link>
@@ -236,7 +242,7 @@ export const Header: React.FC<HeaderProps> = ({
                             isBurger && styles['toggle']
                         )}
                     >
-                        <Link href="/">
+                        <Link href={backHref}>
                             <a
                                 className={clsx(
                                     styles.root__links__item,
@@ -251,7 +257,7 @@ export const Header: React.FC<HeaderProps> = ({
                                             : 'primary'
                                     }
                                 >
-                                    На главную
+                                    {backTitle}
                                 </Typography>
                             </a>
                         </Link>
