@@ -12,6 +12,7 @@ export type PageProps = {
 
 const Home: NextPage<PageProps> = ({ data }) => {
     const [product, setProduct] = useState<string | null>(null);
+
     const popularRef = useRef<HTMLDivElement | null>(null);
     const categoryRef = useRef<HTMLDivElement | null>(null);
     const aboutusRef = useRef<HTMLDivElement | null>(null);
