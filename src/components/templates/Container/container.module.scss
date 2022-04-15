@@ -10,11 +10,11 @@
         width: $width;
         min-width: $width;
         max-width: $width;
-        margin: 0vh auto 0vh auto;
+        margin: -5vh auto 0vh auto;
 
         @include breakpoint("tablet") {
             $width: map-get($am-containers, tablet);
-
+            margin: 0vh auto 0vh auto;
             width: $width;
             min-width: $width;
             max-width: $width;

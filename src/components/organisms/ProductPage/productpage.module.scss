@@ -1,0 +1,38 @@
+@import "src/scss/mixins";
+@import "src/scss/variables";
+
+.root {
+    margin: 0 auto;
+    width: inherit;
+    height: 100vh;
+    background-image: linear-gradient(
+        to right,
+        #1e212c 0%,
+        rgba(242, 0, 255, 0.2) 50%,
+        #1e212c 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    @include breakpoint("tablet") {
+        flex-direction: row;
+        width: 85vw;
+        height: 80vh;
+    }
+
+    &__picturewrapper {
+        border: 7px solid #fff;
+        margin: 2% 1% 1% 2%;
+        display: flex;
+
+        @include breakpoint("tablet") {
+            margin: 2% 1% 1% 0%;
+        }
+    }
+
+    &__descriptionwrapper {
+        border: 7px solid #fff;
+        margin: 2% 1% 1% 2%;
+    }
+}

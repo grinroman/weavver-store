@@ -22,13 +22,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     id,
 }) => {
     return (
-        <Link
-            href={{
-                pathname: `catalog/product/${id}`,
-                query: { productId: id },
-            }}
-            passHref
-        >
+        <Link href={'catalog/product/' + id} key={id}>
             <a className={styles.root}>
                 <img src={`/images/product-cards/${imgSrc}.jpg`} />
                 {sale ? (

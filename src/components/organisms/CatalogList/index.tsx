@@ -11,9 +11,6 @@ export type CategoryProps = {
 };
 
 export const CatalogList: React.FC<CategoryProps> = () => {
-    const cardsRefs = useRef<HTMLElement[] | null>(null);
-    cardsRefs.current = [];
-
     return (
         <div className={styles.root}>
             <ul className={styles.root__grid}>
