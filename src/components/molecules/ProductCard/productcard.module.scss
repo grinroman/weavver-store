@@ -4,7 +4,7 @@
 .root {
     background: get-color(paragraph, base);
     border-radius: 2px;
-    height: 200px;
+    height: 220px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,14 +51,8 @@
         margin: 8px 0px;
     }
 
-    img {
-        width: 60%;
-        @include breakpoint("tablet") {
-            width: 65%;
-        }
-        @include breakpoint("desktop") {
-            width: 70%;
-        }
+    & p {
+        text-align: center;
     }
 
     &__crossed {

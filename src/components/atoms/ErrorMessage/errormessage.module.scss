@@ -1,0 +1,9 @@
+@import "src/scss/mixins.scss";
+.root {
+    display: block;
+    object-fit: content;
+    margin: 0 auto;
+    transform: scale(0.7);
+    display: flex;
+    justify-content: center;
+}

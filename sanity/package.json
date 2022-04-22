@@ -22,12 +22,12 @@
     "@sanity/eslint-config-studio": "^2.0.0",
     "@sanity/vision": "^2.29.5",
     "eslint": "^8.6.0",
+    "next-sanity-image": "^3.2.1",
     "prop-types": "^15.7",
     "react": "^17.0",
     "react-dom": "^17.0",
     "styled-components": "^5.2.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/grinroman/weavver-store.git"

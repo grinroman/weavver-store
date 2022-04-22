@@ -4,27 +4,46 @@ import productTypes from 'src/mocks/productTypes.json';
 import clsx from 'clsx';
 import { Typography } from 'src/components/atoms/Typography';
 import Link from 'next/link';
+import { calculateTime } from 'src/utils/calculations/calculatePrice';
+import Image from 'next/image';
+import { useNextSanityImage } from 'next-sanity-image';
+import sanityClient from '@sanity/client';
+import client from 'src/utils/routes/client';
+import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
 type ProductCardProps = {
     imgSrc: string;
-    title: string;
+    name: string;
     price: number;
-    shortDesc: any;
     sale?: number;
-    id: number;
+    slug: any;
 };
 
 export const ProductCard: React.FC<ProductCardProps> = ({
     imgSrc,
-    title,
-    shortDesc,
+    name,
     sale,
     price,
-    id,
+    slug,
 }) => {
+    const [isTablet, setIsTablet] = useState<boolean>(false);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+
+    useBreakpoints((breakpoint) => {
+        setIsTablet(breakpoint <= Breakpoint.TABLET);
+        setIsMobile(breakpoint <= Breakpoint.MOBILE);
+    });
+    console.log(isMobile);
+
     return (
-        <Link href={'catalog/product/' + id} key={id}>
+        <Link href={'catalog/product/' + slug.current} key={slug.current}>
             <a className={styles.root}>
-                <img src={`/images/product-cards/${imgSrc}.jpg`} />
+                {/* <img src={imgSrc} /> */}
+                <Image
+                    src={imgSrc}
+                    alt={name}
+                    width={isTablet ? 160 : isMobile ? 40 : 220}
+                    height={isTablet ? 280 : isMobile ? 80 : 320}
+                />
                 {sale ? (
                     <div className={styles.root__saletag}>
                         <Typography preset="common7" color="body-0">
@@ -34,17 +53,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 ) : null}
                 <div className={styles.root__header}>
                     <Typography preset="title3" color="body-0">
-                        {title}
+                        {name}
                     </Typography>
                 </div>
-                {/* <div className={styles.root__shortdescription}>
-                {shortDesc.map((descEl: string) => (
-                    <Typography preset="common5" color="body-0" align="center">
-                        {descEl}
-                        <br />
-                    </Typography>
-                ))}
-                </div> */}
                 <div
                     className={clsx(
                         styles.root__price,
@@ -65,7 +76,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                             color="paragraph"
                             component="div"
                         >
-                            {(price * (1 - sale / 100)).toString() + '₽'}
+                            {calculateTime(price, sale) + '₽'}
                         </Typography>
                     ) : null}
                 </div>

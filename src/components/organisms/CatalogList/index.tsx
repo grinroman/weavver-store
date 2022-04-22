@@ -1,35 +1,82 @@
-import clsx from 'clsx';
-import React, { forwardRef, MutableRefObject, useRef } from 'react';
-import { Typography } from 'src/components/atoms/Typography';
+import React, {
+    forwardRef,
+    MutableRefObject,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import styles from './cataloglist.module.scss';
 import productListMock from 'src/mocks/productListMock.json';
+import client from 'src/utils/routes/client';
 import ProductCard from 'src/components/molecules/ProductCard';
 import Link from 'next/link';
-
+import { Typography } from 'src/components/atoms/Typography';
+import clsx from 'clsx';
+import { LoadingSpinner } from 'src/components/atoms/LoadingSpinner';
+import { urlForThumbnail } from 'src/utils/routes/image';
+import { useNextSanityImage } from 'next-sanity-image';
+import sanityClient from '@sanity/client';
+import { Product } from 'src/Types/Product';
 export type CategoryProps = {
     // children: React.ReactNode;
 };
 
+export type AllProductsResponse = {
+    products: Product[];
+    error: any;
+    loading: boolean;
+};
+
 export const CatalogList: React.FC<CategoryProps> = () => {
+    const [productResponse, setProductResponse] = useState<AllProductsResponse>(
+        {
+            products: [],
+            error: '',
+            loading: true,
+        }
+    );
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const products = await client.fetch(`*[_type == "product"]`);
+                setProductResponse({ products, error, loading: false });
+            } catch (error) {
+                setProductResponse({
+                    products,
+                    loading: false,
+                    error: error.message,
+                });
+            }
+        };
+        fetchData();
+    }, []);
+
+    const { loading, error, products } = productResponse;
+
     return (
         <div className={styles.root}>
-            <ul className={styles.root__grid}>
-                {productListMock.map((product) => {
-                    //FIXME: сюда надо передавать результат завпроса!!!
-                    return (
-                        <li key={product.id}>
-                            <ProductCard
-                                imgSrc={product.imgSrc}
-                                title={product.title}
-                                price={product.price}
-                                shortDesc={product.shortDesc}
-                                sale={product.sale}
-                                id={product.id}
-                            />
-                        </li>
-                    );
-                })}
-            </ul>
+            {loading ? (
+                <LoadingSpinner />
+            ) : error ? (
+                <p>{error}</p>
+            ) : (
+                <ul className={styles.root__grid}>
+                    {products.map((product, i) => {
+                        return (
+                            <li key={i}>
+                                <ProductCard
+                                    imgSrc={urlForThumbnail(product.image)}
+                                    name={product.name}
+                                    price={product.price}
+                                    sale={product.sale}
+                                    slug={product.slug}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
         </div>
     );
 };

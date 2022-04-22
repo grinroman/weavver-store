@@ -4,7 +4,7 @@
 .root {
     margin: 0 auto;
     width: inherit;
-    height: 100vh;
+
     background-image: linear-gradient(
         to right,
         #1e212c 0%,
@@ -13,26 +13,157 @@
     );
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 90vw;
+    height: 92vh;
 
     @include breakpoint("tablet") {
         flex-direction: row;
-        width: 85vw;
-        height: 80vh;
+        width: 740px;
+        height: 560px;
+    }
+
+    @include breakpoint("desktop") {
+        flex-direction: row;
+        width: 1040px;
+        height: 660px;
     }
 
     &__picturewrapper {
-        border: 7px solid #fff;
-        margin: 2% 1% 1% 2%;
-        display: flex;
+        // display: flex;
+        // justify-content: center;
+        // align-items: flex-start;
+        margin-top: 4%;
+        height: 550px;
+    }
 
-        @include breakpoint("tablet") {
-            margin: 2% 1% 1% 0%;
-        }
+    &__rating {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     &__descriptionwrapper {
-        border: 7px solid #fff;
-        margin: 2% 1% 1% 2%;
+        flex-direction: row;
+        height: 550px;
+        width: 100%;
+        margin-top: 4%;
+        padding: 0% 5% 5% 5%;
+
+        @include breakpoint("tablet") {
+            width: 55%;
+            height: 510px;
+            padding: 0% 5% 5% 5%;
+        }
+
+        @include breakpoint("desktop") {
+            height: 550px;
+        }
+    }
+
+    &__description {
+        height: 60%;
+    }
+
+    &__chracteristics {
+        display: flex;
+        flex-direction: column;
+
+        @include breakpoint("tablet") {
+            justify-content: center;
+            height: 80%;
+        }
+    }
+
+    &__catbrand {
+        & p::second-child {
+            float: right;
+        }
+    }
+
+    &__infowrapper {
+        margin-top: 5%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        @include breakpoint("tablet") {
+            flex-direction: column;
+            justify-content: space-between;
+            height: 68vh;
+        }
+    }
+
+    &__descriptionitem {
+        position: relative;
+        &::before {
+            position: absolute;
+            content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+            color: get-color(grey, base); /* Change the color */
+            font-weight: bold; /* If you want it to be bold */
+            display: inline-block; /* Needed to add space between the bullet and the text */
+            width: 1em; /* Also needed for space (tweak if needed) */
+            margin-left: -1em; /* Also needed for space (tweak if needed) */
+            top: -6px;
+            margin-left: -10px;
+            margin-top: 2px;
+        }
+        margin-top: 12px;
+        padding-left: 10px;
+    }
+
+    &__buymenu {
+        width: 50%;
+        height: 45%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        @include breakpoint("tablet") {
+            width: 100%;
+        }
+
+        // & p {
+        //     margin: 12% 0%;
+        // }
+    }
+
+    &__pricewithsale {
+        padding: 10% 0%;
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    &__crossed {
+        text-decoration: line-through;
+    }
+
+    &__ammount__wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        & div {
+            align-items: center;
+            display: flex;
+        }
+        & button {
+            &:hover {
+                transform: scale(1.4);
+                transition: all $am-transition-time ease-in-out;
+            }
+            width: 30%;
+        }
+    }
+
+    &__buy__button {
+        width: 95%;
+        margin: 1% 1.5%;
+        height: 33%;
+        &:hover {
+            box-shadow: inset 0 0 4px get-color(primary, secondary);
+        }
     }
 }

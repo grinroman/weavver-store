@@ -27,33 +27,33 @@ export default class CustomDocument extends Document {
     }
 }
 
-// CustomDocument.getInitialProps = async (ctx): Promise<any> => {
-//     //getting render page of the context - we change way we render the page
-//     const originalRenderPage = ctx.renderPage;
-//     const cache = createCache({ key: 'css' });
+CustomDocument.getInitialProps = async (ctx): Promise<any> => {
+    //getting render page of the context - we change way we render the page
+    const originalRenderPage = ctx.renderPage;
+    const cache = createCache({ key: 'css' });
 
-//     const { extractCriticalToChunks } = createEmotionServer(cache);
-//     ctx.renderPage = () =>
-//         originalRenderPage({
-//             enhanceApp: (App) => (props) =>
-//                 <App emotionCache={cache} {...props} />,
-//         });
+    const { extractCriticalToChunks } = createEmotionServer(cache);
+    ctx.renderPage = () =>
+        originalRenderPage({
+            enhanceApp: (App) => (props) =>
+                <App emotionCache={cache} {...props} />,
+        });
 
-//     const initialProps = await Document.getInitialProps(ctx);
-//     const emotionStyles = extractCriticalToChunks(initialProps.html);
-//     const emotionStyleTags = emotionStyles.styles.map((style) => (
-//         <style
-//             data-emotion={`${style.key} ${style.ids.join(' ')}`}
-//             key={style.key}
-//             // eslint-disable-next-line react/no-danger
-//             dangerouslySetInnerHTML={{ __html: style.css }}
-//         />
-//     ));
-//     return {
-//         ...initialProps,
-//         styles: [
-//             ...React.Children.toArray(initialProps.styles),
-//             ...emotionStyleTags,
-//         ],
-//     };
-// };
+    const initialProps = await Document.getInitialProps(ctx);
+    const emotionStyles = extractCriticalToChunks(initialProps.html);
+    const emotionStyleTags = emotionStyles.styles.map((style) => (
+        <style
+            data-emotion={`${style.key} ${style.ids.join(' ')}`}
+            key={style.key}
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: style.css }}
+        />
+    ));
+    return {
+        ...initialProps,
+        styles: [
+            ...React.Children.toArray(initialProps.styles),
+            ...emotionStyleTags,
+        ],
+    };
+};
