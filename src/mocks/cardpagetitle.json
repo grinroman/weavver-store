@@ -1,0 +1,19 @@
+[
+    {
+        "name": "Фото",
+        "align": "left"
+    },
+    {
+        "name": "Название",
+        "align": "left"
+    },
+    {
+        "name": "Кол-во",
+        "align": "right"
+    },
+    {
+        "name": "Цена",
+        "align": "center"
+    },
+    { "name": "Действие", "align": "right" }
+]

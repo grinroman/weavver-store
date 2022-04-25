@@ -32,7 +32,6 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
         state: { cart },
         dispatch,
     } = useContext(Store);
-    // const { enqueueSnackbar } = useSnackbar();
     const priceWithSale = Math.round(product.price * (1 - product.sale / 100));
     const [isTablet, setIsTablet] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
