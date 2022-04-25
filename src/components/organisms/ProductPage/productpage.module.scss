@@ -40,7 +40,12 @@
     &__rating {
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
+    }
+
+    &__stockwrapper {
+        display: flex;
+        align-items: center;
     }
 
     &__descriptionwrapper {
@@ -114,15 +119,14 @@
     }
 
     &__buymenu {
-        width: 50%;
-        height: 45%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        align-items: center;
         @include breakpoint("tablet") {
-            width: 100%;
+            height: 100%;
         }
-
         // & p {
         //     margin: 12% 0%;
         // }
@@ -152,6 +156,7 @@
         & button {
             &:hover {
                 transform: scale(1.4);
+                box-shadow: inset 0 0 4px get-color(primary, secondary);
                 transition: all $am-transition-time ease-in-out;
             }
             width: 30%;

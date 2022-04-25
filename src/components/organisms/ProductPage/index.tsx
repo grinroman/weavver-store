@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState, forwardRef } from 'react';
+import React, {
+    useEffect,
+    useRef,
+    useState,
+    forwardRef,
+    useContext,
+} from 'react';
 import styles from './productpage.module.scss';
 import productTypes from 'src/mocks/productTypes.json';
 import clsx from 'clsx';
@@ -7,26 +13,37 @@ import { Typography } from 'src/components/atoms/Typography';
 import client from 'src/utils/routes/client';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
-import { urlFor } from 'src/utils/routes/image';
+import { urlFor, urlForThumbnail } from 'src/utils/routes/image';
 import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
 import { Rating } from '@mui/material';
-
+import { Store } from 'src/utils/context/Store';
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
 export type ProductPageProps = {
     product: Product;
 };
+// export type ContextType = {
+//     state: any | undefined;
+//     dispatch: any;
+// };
 
 export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
+    const {
+        state: { cart },
+        dispatch,
+    } = useContext(Store);
+    // const { enqueueSnackbar } = useSnackbar();
     const priceWithSale = Math.round(product.price * (1 - product.sale / 100));
     const [isTablet, setIsTablet] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [productAmount, setProductAmount] = useState<number>(1);
+    const characteristics = product.description.split(', ');
+    const { enqueueSnackbar } = useSnackbar();
 
     useBreakpoints((breakpoint) => {
         setIsTablet(breakpoint <= Breakpoint.TABLET);
         setIsMobile(breakpoint <= Breakpoint.MOBILE);
     });
-
-    const characteristics = product.description.split(', ');
 
     const onAmountChange = (isIncrease: boolean): void => {
         isIncrease
@@ -34,6 +51,35 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
             : setProductAmount((productAmount) =>
                   productAmount ? productAmount - 1 : 1
               );
+    };
+
+    const addToCartHandler = async () => {
+        const existItem = cart.cartItems.find(
+            (x: Product) => x._id === product._id
+        );
+        const quantity = existItem ? existItem.quantity + 1 : 1;
+        const { data } = await axios.get(`/api/Products/${product._id}`);
+        if (data.countInStock < quantity) {
+            enqueueSnackbar('Извините, товара нет в наличии!', {
+                variant: 'error',
+            });
+            return;
+        }
+        dispatch({
+            type: 'CART_ADD_ITEM',
+            payload: {
+                _key: product._id,
+                name: product.name,
+                countInStock: product.countInStock,
+                slug: product.slug.current,
+                price: product.price,
+                image: urlForThumbnail(product.image),
+                quantity,
+            },
+        });
+        enqueueSnackbar(`${product.name} добавлен в заказ! `, {
+            variant: 'success',
+        });
     };
 
     return (
@@ -47,6 +93,14 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                 />
                 <div className={styles.root__rating}>
                     <Rating value={product.rating} />
+                    <Typography
+                        preset="title4"
+                        component="div"
+                        color="paragraph"
+                        className={styles.root__stockwrapper}
+                    >
+                        {product.countInStock} в наличии
+                    </Typography>
                 </div>
             </div>
 
@@ -65,20 +119,25 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                             </Typography>
                         </div>
                         <ul className={styles.root__chracteristics}>
-                            {characteristics.map((descPoint: string) => {
-                                return (
-                                    <li
-                                        className={styles.root__descriptionitem}
-                                    >
-                                        <Typography
-                                            preset="common4"
-                                            color="grey"
+                            {characteristics.map(
+                                (descPoint: string, i: number) => {
+                                    return (
+                                        <li
+                                            className={
+                                                styles.root__descriptionitem
+                                            }
+                                            key={i}
                                         >
-                                            {descPoint}
-                                        </Typography>
-                                    </li>
-                                );
-                            })}
+                                            <Typography
+                                                preset="common4"
+                                                color="grey"
+                                            >
+                                                {descPoint}
+                                            </Typography>
+                                        </li>
+                                    );
+                                }
+                            )}
                         </ul>
                     </div>
                     <div className={styles.root__buymenu}>
@@ -107,6 +166,7 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                                 preset="title4"
                                 color="paragraph"
                                 align="center"
+                                component="div"
                             >
                                 {product.price}₽
                             </Typography>
@@ -132,7 +192,11 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                                 </Typography>
                             </button>
                         </div>
-                        <button className={styles.root__buy__button}>
+                        <button
+                            disabled={!Boolean(product.countInStock)}
+                            className={styles.root__buy__button}
+                            onClick={addToCartHandler}
+                        >
                             <Typography preset="title4" color="paragraph">
                                 Купить
                             </Typography>

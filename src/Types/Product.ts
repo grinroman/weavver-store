@@ -1,13 +1,15 @@
 export type Product = {
+    _id: string;
     name: string;
-    price: any;
-    sale: any;
+    price: number;
+    sale: number;
     image: any;
-    description: any;
+    description: string;
     slug: any;
-    brand: any;
-    size: any;
-    category: any;
-    rating: any;
-    numReviews: any;
+    brand: string;
+    size: string;
+    category: string;
+    rating: number;
+    numReviews: number;
+    countInStock: number;
 };

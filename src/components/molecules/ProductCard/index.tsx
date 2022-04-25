@@ -32,7 +32,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         setIsTablet(breakpoint <= Breakpoint.TABLET);
         setIsMobile(breakpoint <= Breakpoint.MOBILE);
     });
-    console.log(isMobile);
 
     return (
         <Link href={'catalog/product/' + slug.current} key={slug.current}>

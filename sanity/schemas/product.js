@@ -68,7 +68,7 @@ export default {
         },
         {
             name: 'countInStock',
-            title: 'CountInStock',
+            title: 'Count in stock',
             type: 'number',
         },
     ],
