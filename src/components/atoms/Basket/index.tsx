@@ -1,7 +1,9 @@
+import { Typography } from '../Typography';
 import styles from './basket.module.scss';
-import skull from 'public/svgs/skull-svgrepo-com.svg';
 
-export const Basket: React.FC = () => {
+type BasketProps = { itemsQuantity: number };
+
+export const Basket: React.FC<BasketProps> = ({ itemsQuantity }) => {
     return (
         <div className={styles.root}>
             <button>
@@ -25,6 +27,18 @@ export const Basket: React.FC = () => {
                     <path strokeLinecap="round" d="M4 10h16" />{' '}
                 </svg>
             </button>
+            {itemsQuantity ? (
+                <div className={styles.root__cart__quantity}>
+                    <Typography
+                        preset="common4"
+                        color="paragraph"
+                        component="div"
+                        className={styles.root__centrise__quantity}
+                    >
+                        {itemsQuantity}
+                    </Typography>
+                </div>
+            ) : null}
         </div>
     );
 };

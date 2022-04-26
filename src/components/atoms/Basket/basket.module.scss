@@ -3,30 +3,67 @@
 
 .root {
     background: #fff;
-    transform: scale(1.7, 1.5);
-    top: 130px;
-    right: 50px;
+    transform: scale(1.8);
+    width: 50px;
+    height: 50px;
     cursor: pointer;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: scale(0.85);
     opacity: 0.8;
+    box-shadow: 0 0 5px get-color(paragraph, secondary);
 
     @include breakpoint("tablet") {
-        top: 225px;
-        right: 27px;
-        transform: scale(2, 1.8);
         position: absolute;
+        top: 20px;
+        left: 190px;
+        width: 55px;
+        height: 55px;
+        transform: scale(1);
     }
 
     @include breakpoint("desktop") {
+        left: auto;
         top: 225px;
         right: 50px;
-        transform: scale(3, 2.6);
+        transform: scale(1);
     }
 
     &:hover {
-        box-shadow: 0 0 11px get-color(shadow, secondary);
+        box-shadow: 0 0 11px get-color(primary, secondary);
+    }
+
+    &__cart__quantity {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: 30px;
+        left: 35px;
+        border-radius: 50%;
+        background-color: get-color(primary, base);
+        box-shadow: 0 0 10px get-color(primary, secondary);
+        padding: 2px;
+        box-sizing: content-box;
+        @include breakpoint("tablet") {
+            box-shadow: inset 0 0 20px get-color(primary, secondary),
+                0 0 20px get-color(primary, secondary);
+            width: 17px;
+            height: 17px;
+            top: 35px;
+            left: 45px;
+        }
+    }
+
+    &__centrise__quantity {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 1.5px;
+
+        @include breakpoint("desktop") {
+            padding: 0;
+        }
     }
 }

@@ -1,12 +1,19 @@
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import React, {
+    MutableRefObject,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import styles from './header.module.scss';
 import { Typography } from 'src/components/atoms/Typography';
 import Link from 'next/link';
 import { Logo } from 'src/components/atoms/Logo';
 import { Basket } from 'src/components/atoms/Basket';
 import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
+import { Store } from 'src/utils/context/Store';
 
 export type HeaderProps = {
     popularRef?: MutableRefObject<HTMLDivElement | null>;
@@ -19,7 +26,6 @@ export type HeaderProps = {
     backTitle?: string;
     backHref?: string | '/';
 };
-
 export type TabName = 'right' | 'value' | 'key' | 'other' | 'disabled';
 
 export const Header: React.FC<HeaderProps> = ({
@@ -43,6 +49,8 @@ export const Header: React.FC<HeaderProps> = ({
         router.asPath === '/' ? 'right' : 'disabled'
     );
     const burgerRef = useRef<HTMLDivElement | null>(null);
+    const { state, dispatch } = useContext(Store);
+    const { cart } = state;
 
     useBreakpoints((breakpoint) => {
         setIsMobile(breakpoint < Breakpoint.TABLET);
@@ -117,7 +125,20 @@ export const Header: React.FC<HeaderProps> = ({
                                 )}
                             />
                         </button>
-                        {haveBasketIcon ? <Basket /> : null}
+                        {haveBasketIcon ? (
+                            <Link href="/cart">
+                                <a
+                                    className={clsx(
+                                        router.asPath === '/' &&
+                                            styles['active']
+                                    )}
+                                >
+                                    <Basket
+                                        itemsQuantity={cart.cartItems.length}
+                                    />
+                                </a>
+                            </Link>
+                        ) : null}
                     </div>
                 )}
                 {!isMobile && ( //навигация по ГЛАВНОЙ странице для ПК
@@ -356,7 +377,20 @@ export const Header: React.FC<HeaderProps> = ({
                                 </Typography>
                             </a>
                         </Link>
-                        {haveBasketIcon ? <Basket /> : null}
+                        {haveBasketIcon ? (
+                            <Link href="/cart">
+                                <a
+                                    className={clsx(
+                                        router.asPath === '/' &&
+                                            styles['active']
+                                    )}
+                                >
+                                    <Basket
+                                        itemsQuantity={cart.cartItems.length}
+                                    />
+                                </a>
+                            </Link>
+                        ) : null}
                     </nav>
                 )}
             </header>
