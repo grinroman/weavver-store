@@ -13,6 +13,7 @@ export type HeaderProps = {
     categoryRef?: MutableRefObject<HTMLDivElement | null>;
     aboutusRef?: MutableRefObject<HTMLDivElement | null>;
     contactusRef?: MutableRefObject<HTMLDivElement | null>;
+    haveBasketIcon?: boolean;
     scrollTo?: any;
     setTitle?: any;
     backTitle?: string;
@@ -30,6 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
     setTitle,
     backTitle,
     backHref,
+    haveBasketIcon = true,
 }) => {
     backTitle = backTitle || `\< На главную`;
     backHref = backHref || '/';
@@ -115,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({
                                 )}
                             />
                         </button>
-                        <Basket />
+                        {haveBasketIcon ? <Basket /> : null}
                     </div>
                 )}
                 {!isMobile && ( //навигация по ГЛАВНОЙ странице для ПК
@@ -354,7 +356,7 @@ export const Header: React.FC<HeaderProps> = ({
                                 </Typography>
                             </a>
                         </Link>
-                        <Basket />
+                        {haveBasketIcon ? <Basket /> : null}
                     </nav>
                 )}
             </header>

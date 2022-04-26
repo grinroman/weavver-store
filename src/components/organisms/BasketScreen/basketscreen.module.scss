@@ -2,5 +2,19 @@
 @import "src/scss/variables";
 
 .root {
-    display: block;
+    min-height: 54.5vh;
+
+    &__header {
+        margin: 4%;
+    }
+
+    &__backtoprodlist {
+        margin: 4%;
+    }
+
+    &__subtotal {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25vh;
+    }
 }

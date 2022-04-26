@@ -12,7 +12,7 @@ const CartScreen: NextPage = () => {
             <Head>
                 <title>Weavver · Корзина заказа</title>
             </Head>
-            <Header />
+            <Header haveBasketIcon={false} />
             <Container>
                 <BasketScreen />
             </Container>

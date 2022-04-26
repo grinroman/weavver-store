@@ -29,6 +29,9 @@ import { Typography } from 'src/components/atoms/Typography';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { getPlural } from 'src/utils/calculations/getPlural';
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
+import dynamic from 'next/dynamic';
 
 export type TableHeader = {
     name: string;
@@ -42,28 +45,79 @@ export const CartScreen: React.FC = () => {
         },
         dispatch,
     } = useContext(Store);
-
     const [itemsCount, setItemsCount] = useState(
         cartItems.reduce((a: any, c: { quantity: any }) => a + c.quantity, 0)
     );
+    const { enqueueSnackbar } = useSnackbar();
+
+    const updateCartHandler = async (item: Product, quantity: number) => {
+        const { data } = await axios.get(`/api/Products/${item._id}`);
+        setItemsCount(quantity);
+        if (data.countInStock < quantity) {
+            enqueueSnackbar('Извините, товар закончился', {
+                variant: 'error',
+            });
+            return;
+        }
+        dispatch({
+            type: 'CART_ADD_ITEM',
+            payload: {
+                _key: item._key,
+                name: item.name,
+                countInStock: item.countInStock,
+                slug: item.slug,
+                price: item.price,
+                image: item.image,
+                quantity,
+            },
+        });
+        enqueueSnackbar(
+            `Для товара ${item.name} корзина была успешно обновлена!`,
+            {
+                variant: 'success',
+            }
+        );
+    };
+
+    const removeItemHandler = (item: any) => {
+        dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+    };
 
     return (
         <div className={styles.root}>
             {cartItems.length === 0 ? (
-                <Typography component="div" preset="title2" color="paragraph">
-                    Ваша корзина пуста!
-                </Typography>
+                <>
+                    <Typography
+                        component="div"
+                        preset="title2"
+                        color="paragraph"
+                        className={styles.root__header}
+                    >
+                        Ваша корзина пуста!
+                    </Typography>{' '}
+                    <Link href="/catalog">
+                        <Typography
+                            component="a"
+                            preset="title3"
+                            color="primary"
+                            className={styles.root__backtoprodlist}
+                        >
+                            Перейти в каталог
+                        </Typography>
+                    </Link>
+                </>
             ) : (
                 <>
                     <Typography
                         component="div"
                         preset="title2"
                         color="paragraph"
+                        className={styles.root__header}
                     >
                         Ваша корзина
                     </Typography>
                     <Grid container>
-                        <Grid item md={9} xs={12}>
+                        <Grid item md={9} xs={12} spacing={1}>
                             <TableContainer>
                                 <Table>
                                     <TableHead>
@@ -123,7 +177,7 @@ export const CartScreen: React.FC = () => {
                                                     <Select
                                                         value={item.quantity}
                                                         onChange={(e) =>
-                                                            updateCardHandler(
+                                                            updateCartHandler(
                                                                 item,
                                                                 e.target.value
                                                             )
@@ -166,7 +220,7 @@ export const CartScreen: React.FC = () => {
                                                             )
                                                         }
                                                     >
-                                                        x
+                                                        &#10005;
                                                     </Button>
                                                 </TableCell>
                                             </TableRow>
@@ -182,6 +236,7 @@ export const CartScreen: React.FC = () => {
                                         <Typography
                                             preset="common4"
                                             color="background"
+                                            className={styles.root__subtotal}
                                         >
                                             Итого (
                                             {cartItems.reduce(
@@ -192,7 +247,13 @@ export const CartScreen: React.FC = () => {
                                                 0
                                             )}{' '}
                                             {getPlural(
-                                                itemsCount,
+                                                cartItems.reduce(
+                                                    (
+                                                        a: any,
+                                                        c: { quantity: any }
+                                                    ) => a + c.quantity,
+                                                    0
+                                                ),
                                                 'вещь',
                                                 'вещи',
                                                 'вещей'
@@ -216,7 +277,7 @@ export const CartScreen: React.FC = () => {
                                             color="secondary"
                                             variant="contained"
                                         >
-                                            Checkout
+                                            Подтвердить
                                         </Button>
                                     </ListItem>
                                 </List>
@@ -229,4 +290,4 @@ export const CartScreen: React.FC = () => {
     );
 };
 
-export default CartScreen;
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

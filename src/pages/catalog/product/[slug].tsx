@@ -4,7 +4,6 @@ import { Container } from 'src/components/templates/Container';
 import { Header } from 'src/components/molecules/Header';
 import Head from 'next/head';
 import { Footer } from 'src/components/molecules/Footer';
-import { useRouter } from 'next/router';
 import ProductPage from 'src/components/organisms/ProductPage';
 import productListMock from 'src/mocks/productListMock.json';
 import client from 'src/utils/routes/client';
