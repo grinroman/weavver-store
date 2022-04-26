@@ -47,7 +47,7 @@
 
     &__mobilebtnwrapper {
         display: flex;
-        width: 30%;
+        width: 60%;
         align-items: center;
         justify-content: space-between;
     }
@@ -168,7 +168,7 @@
             @include breakpoint("tablet") {
                 margin-top: 0;
                 margin-right: 0;
-                margin-left: 32px;
+                margin-left: 16px;
 
                 &__home {
                     display: flex;
@@ -198,20 +198,26 @@
 
     &__tab {
         background-color: none;
-        padding: 8px 12px;
+        padding: 4px 8px;
         margin-right: 0;
         border-radius: 20px;
         transition: background-color $am-transition-time ease-out;
         box-shadow: none;
 
-        &.inactive {
-            &:hover > p {
-                color: get-color(paragraph, base);
-            }
+        @include breakpoint("tablet") {
+            margin-right: 4px;
+            padding: 4px 6px;
         }
 
         @include breakpoint("desktop") {
             margin-right: 4px;
+            padding: 8px 12px;
+        }
+
+        &.inactive {
+            &:hover > p {
+                color: get-color(paragraph, base);
+            }
         }
 
         &.active {

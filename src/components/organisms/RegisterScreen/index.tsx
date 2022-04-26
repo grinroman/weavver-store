@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import styles from './loginscreen.module.scss';
+import styles from './registerscreen.module.scss';
 import NextLink from 'next/link';
 import { Button, Link, List, ListItem, TextField } from '@mui/material';
 import Form from 'src/components/atoms/Form';
@@ -8,14 +8,19 @@ import { Typography } from 'src/components/atoms/Typography';
 import { makeStyles } from '@mui/styles';
 type Props = {};
 
-const LoginScreen: React.FC<Props> = () => {
+const RegisterScreen: React.FC<Props> = () => {
     const {
         handleSubmit,
         control,
         formState: { errors },
     } = useForm();
 
-    const submitHandler = async ({ email, password }) => {
+    const submitHandler = async ({
+        name,
+        email,
+        password,
+        confirmPassword,
+    }) => {
         console.log('gg');
     };
 
@@ -35,9 +40,42 @@ const LoginScreen: React.FC<Props> = () => {
                     component="div"
                     className={styles.root__header}
                 >
-                    Вход
+                    Регистрация
                 </Typography>
                 <List>
+                    <ListItem>
+                        <Controller
+                            name="name"
+                            control={control}
+                            defaultValue=""
+                            rules={{
+                                required: true,
+                                minLength: 4,
+                            }}
+                            render={({ field }) => (
+                                <TextField
+                                    color="secondary"
+                                    variant="outlined"
+                                    fullWidth
+                                    id="name"
+                                    label="Имя"
+                                    inputProps={{
+                                        type: 'email',
+                                        className: classes.input,
+                                    }}
+                                    error={Boolean(errors.name)}
+                                    helperText={
+                                        errors.name
+                                            ? errors.name.type === 'minLength'
+                                                ? 'Имя должно быть более 4-ёх симовлов'
+                                                : 'Требуется имя'
+                                            : ''
+                                    }
+                                    {...field}
+                                ></TextField>
+                            )}
+                        ></Controller>
+                    </ListItem>
                     <ListItem>
                         <Controller
                             name="email"
@@ -63,8 +101,8 @@ const LoginScreen: React.FC<Props> = () => {
                                     helperText={
                                         errors.email
                                             ? errors.email.type === 'pattern'
-                                                ? 'Email is not valid'
-                                                : 'Email is required'
+                                                ? 'Не корректно задана почта'
+                                                : 'Требуется почта'
                                             : ''
                                     }
                                     {...field}
@@ -97,8 +135,42 @@ const LoginScreen: React.FC<Props> = () => {
                                         errors.password
                                             ? errors.password.type ===
                                               'minLength'
-                                                ? 'Password length is more than 5'
-                                                : 'Password is required'
+                                                ? 'Пароль должен быть более 5 символов'
+                                                : 'Требуется ввести пароль'
+                                            : ''
+                                    }
+                                    {...field}
+                                ></TextField>
+                            )}
+                        ></Controller>
+                    </ListItem>
+                    <ListItem>
+                        <Controller
+                            name="confirmPassword"
+                            control={control}
+                            defaultValue=""
+                            rules={{
+                                required: true,
+                                minLength: 6,
+                            }}
+                            render={({ field }) => (
+                                <TextField
+                                    variant="outlined"
+                                    color="secondary"
+                                    fullWidth
+                                    id="confirmPassword"
+                                    label="Подтверждение пароля"
+                                    inputProps={{
+                                        type: 'confirmPassword',
+                                        className: classes.input,
+                                    }}
+                                    error={Boolean(errors.confirmPassword)}
+                                    helperText={
+                                        errors.confirmPassword
+                                            ? errors.confirmPassword.type ===
+                                              'minLength'
+                                                ? 'Пароль должен быть более 5 символов'
+                                                : 'Требуется подтверждение пароля'
                                             : ''
                                     }
                                     {...field}
@@ -114,18 +186,18 @@ const LoginScreen: React.FC<Props> = () => {
                             color="secondary"
                         >
                             <Typography preset="common1" color="paragraph">
-                                Вход
+                                Регистрация
                             </Typography>
                         </Button>
                     </ListItem>
                     <ListItem>
                         <Typography preset="common4" color="paragraph">
-                            Нет аккаунта?
+                            Уже есть аккаунт?
                         </Typography>
-                        <NextLink href={'/register'} passHref>
+                        <NextLink href={'/login'} passHref>
                             <a className={styles.root__registation__link}>
                                 <Typography preset="common4" color="primary">
-                                    Зарегестрироваться
+                                    Вход
                                 </Typography>
                             </a>
                         </NextLink>
@@ -136,4 +208,4 @@ const LoginScreen: React.FC<Props> = () => {
     );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

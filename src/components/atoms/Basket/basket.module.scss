@@ -17,18 +17,19 @@
 
     @include breakpoint("tablet") {
         position: absolute;
-        top: 20px;
-        left: 190px;
+        top: 175px;
+        right: 20px;
         width: 55px;
         height: 55px;
         transform: scale(1);
     }
 
     @include breakpoint("desktop") {
-        left: auto;
         top: 225px;
-        right: 50px;
-        transform: scale(1);
+        right: 90px;
+        width: 60px;
+        height: 60px;
+        transform: scale(1.3);
     }
 
     &:hover {

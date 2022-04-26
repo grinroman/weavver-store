@@ -12,6 +12,7 @@ import { Typography } from 'src/components/atoms/Typography';
 import Link from 'next/link';
 import { Logo } from 'src/components/atoms/Logo';
 import { Basket } from 'src/components/atoms/Basket';
+import { SignIn } from 'src/components/atoms/SignIn';
 import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
 import { Store } from 'src/utils/context/Store';
 
@@ -126,18 +127,32 @@ export const Header: React.FC<HeaderProps> = ({
                             />
                         </button>
                         {haveBasketIcon ? (
-                            <Link href="/cart">
-                                <a
-                                    className={clsx(
-                                        router.asPath === '/' &&
-                                            styles['active']
-                                    )}
-                                >
-                                    <Basket
-                                        itemsQuantity={cart.cartItems.length}
-                                    />
-                                </a>
-                            </Link>
+                            <>
+                                <Link href="/cart">
+                                    <a
+                                        className={clsx(
+                                            router.asPath === '/' &&
+                                                styles['active']
+                                        )}
+                                    >
+                                        <Basket
+                                            itemsQuantity={
+                                                cart.cartItems.length
+                                            }
+                                        />
+                                    </a>
+                                </Link>
+                                <Link href="/login">
+                                    <a
+                                        className={clsx(
+                                            router.asPath === '/' &&
+                                                styles['active']
+                                        )}
+                                    >
+                                        <SignIn />
+                                    </a>
+                                </Link>
+                            </>
                         ) : null}
                     </div>
                 )}
@@ -208,7 +223,7 @@ export const Header: React.FC<HeaderProps> = ({
                                                 : 'primary'
                                         }
                                     >
-                                        О компании
+                                        Мы
                                     </Typography>
                                 </button>
                                 <button
@@ -378,18 +393,32 @@ export const Header: React.FC<HeaderProps> = ({
                             </a>
                         </Link>
                         {haveBasketIcon ? (
-                            <Link href="/cart">
-                                <a
-                                    className={clsx(
-                                        router.asPath === '/' &&
-                                            styles['active']
-                                    )}
-                                >
-                                    <Basket
-                                        itemsQuantity={cart.cartItems.length}
-                                    />
-                                </a>
-                            </Link>
+                            <>
+                                <Link href="/cart">
+                                    <a
+                                        className={clsx(
+                                            router.asPath === '/' &&
+                                                styles['active']
+                                        )}
+                                    >
+                                        <Basket
+                                            itemsQuantity={
+                                                cart.cartItems.length
+                                            }
+                                        />
+                                    </a>
+                                </Link>{' '}
+                                <Link href="/login">
+                                    <a
+                                        className={clsx(
+                                            router.asPath === '/' &&
+                                                styles['active']
+                                        )}
+                                    >
+                                        <SignIn />
+                                    </a>
+                                </Link>
+                            </>
                         ) : null}
                     </nav>
                 )}
@@ -447,7 +476,7 @@ export const Header: React.FC<HeaderProps> = ({
                                 activeTab === 'key' ? 'paragraph' : 'primary'
                             }
                         >
-                            О компании
+                            О нас
                         </Typography>
                     </button>
                     <button

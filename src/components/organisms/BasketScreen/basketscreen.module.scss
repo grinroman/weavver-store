@@ -15,6 +15,9 @@
     &__subtotal {
         display: flex;
         align-items: center;
-        margin-bottom: 25vh;
+
+        @include breakpoint("desktop") {
+            margin-bottom: 25vh;
+        }
     }
 }

@@ -7,16 +7,17 @@ import { Footer } from 'src/components/molecules/Footer';
 import CategoryFilter from 'src/components/molecules/CategoryFilter';
 import { CatalogList } from 'src/components/organisms/CatalogList';
 import LoginScreen from 'src/components/organisms/LoginScreen';
+import RegisterScreen from 'src/components/organisms/RegisterScreen';
 
 const Catalog: NextPage<Response> = () => {
     return (
         <>
             <Head>
-                <title>Weavver · Авторизация</title>
+                <title>Weavver · Регистрация</title>
             </Head>
             <Header backTitle="< К покупкам" backHref="/catalog" />
             <Container>
-                <LoginScreen />
+                <RegisterScreen />
             </Container>
             <Footer />
         </>
