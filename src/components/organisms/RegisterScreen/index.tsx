@@ -1,27 +1,64 @@
-import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React, { useContext, useEffect } from 'react';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import styles from './registerscreen.module.scss';
 import NextLink from 'next/link';
 import { Button, Link, List, ListItem, TextField } from '@mui/material';
 import Form from 'src/components/atoms/Form';
 import { Typography } from 'src/components/atoms/Typography';
 import { makeStyles } from '@mui/styles';
-type Props = {};
+import { useSnackbar } from 'notistack';
+import axios from 'axios';
+import jsCookie from 'js-cookie';
+import { useRouter } from 'next/router';
+import { Store } from 'src/utils/context/Store';
 
-const RegisterScreen: React.FC<Props> = () => {
+// type FormValues = {
+//     name: string;
+//     email: string;
+//     password: string;
+//     confirmPassword: string;
+// };
+
+const RegisterScreen: React.FC = () => {
     const {
         handleSubmit,
         control,
         formState: { errors },
     } = useForm();
-
-    const submitHandler = async ({
+    const { state, dispatch } = useContext(Store);
+    const { userInfo } = state;
+    const router = useRouter();
+    useEffect(() => {
+        //if user has already loged in in is no need to show login screen again so we need to redirect user to main creen through using router
+        if (userInfo) {
+            router.push('/');
+        }
+    }, [router, userInfo]);
+    const { enqueueSnackbar } = useSnackbar();
+    const submitHandler: SubmitHandler<any> = async ({
+        //FIXME: поменять тип
         name,
         email,
         password,
         confirmPassword,
     }) => {
-        console.log('gg');
+        if (password !== confirmPassword) {
+            enqueueSnackbar('Пароли не совпадают!', { variant: 'error' });
+            return;
+        }
+
+        try {
+            const { data } = await axios.post('/api/users/register', {
+                name,
+                email,
+                password,
+            });
+            dispatch({ type: 'USER_LOGIN', payload: data });
+            jsCookie.set('userInfo', JSON.stringify(data));
+            router.push('/');
+        } catch (err) {
+            enqueueSnackbar(err.message, { variant: 'error' });
+        }
     };
 
     const useStyles = makeStyles({
@@ -60,7 +97,7 @@ const RegisterScreen: React.FC<Props> = () => {
                                     id="name"
                                     label="Имя"
                                     inputProps={{
-                                        type: 'email',
+                                        type: 'name',
                                         className: classes.input,
                                     }}
                                     error={Boolean(errors.name)}

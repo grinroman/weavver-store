@@ -1,9 +1,16 @@
+import { useEffect, useState } from 'react';
 import { Typography } from '../Typography';
 import styles from './basket.module.scss';
 
 type BasketProps = { itemsQuantity: number };
 
 export const Basket: React.FC<BasketProps> = ({ itemsQuantity }) => {
+    const [quantity, setQuantity] = useState(0);
+
+    useEffect(() => {
+        setQuantity(itemsQuantity);
+    }, []);
+
     return (
         <div className={styles.root}>
             <button>
@@ -27,7 +34,7 @@ export const Basket: React.FC<BasketProps> = ({ itemsQuantity }) => {
                     <path strokeLinecap="round" d="M4 10h16" />{' '}
                 </svg>
             </button>
-            {itemsQuantity ? (
+            {quantity ? (
                 <div className={styles.root__cart__quantity}>
                     <Typography
                         preset="common4"
@@ -35,7 +42,7 @@ export const Basket: React.FC<BasketProps> = ({ itemsQuantity }) => {
                         component="div"
                         className={styles.root__centrise__quantity}
                     >
-                        {itemsQuantity}
+                        {quantity}
                     </Typography>
                 </div>
             ) : null}

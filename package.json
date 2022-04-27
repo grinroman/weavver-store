@@ -20,12 +20,14 @@
         "@sanity/image-url": "^1.0.1",
         "@types/react": "^17.0.42",
         "axios": "^0.26.1",
+        "bcryptjs": "^2.4.3",
         "body-scroll-lock": "^4.0.0-beta.0",
         "clsx": "^1.1.1",
         "clx": "^1.0.0",
         "concurrently": "^7.1.0",
         "express": "^4.17.3",
         "js-cookie": "^3.0.1",
+        "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.2.9",
         "next": "^12.1.0",
         "next-connect": "^0.12.2",
@@ -39,6 +41,8 @@
         "scroll-lock": "^2.1.5"
     },
     "devDependencies": {
+        "@types/bcryptjs": "^2.4.2",
+        "@types/js-cookie": "^3.0.2",
         "@types/node": "^17.0.22",
         "@types/scroll-lock": "^2.1.0",
         "eslint": "8.11.0",

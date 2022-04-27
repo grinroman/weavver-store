@@ -1,22 +1,39 @@
-import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React, { useContext } from 'react';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import styles from './loginscreen.module.scss';
 import NextLink from 'next/link';
 import { Button, Link, List, ListItem, TextField } from '@mui/material';
 import Form from 'src/components/atoms/Form';
 import { Typography } from 'src/components/atoms/Typography';
 import { makeStyles } from '@mui/styles';
-type Props = {};
+import { useSnackbar } from 'notistack';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { Store } from 'src/utils/context/Store';
+import jsCookie from 'js-cookie';
 
-const LoginScreen: React.FC<Props> = () => {
+const LoginScreen: React.FC = () => {
     const {
         handleSubmit,
         control,
         formState: { errors },
     } = useForm();
+    const router = useRouter();
+    const { enqueueSnackbar } = useSnackbar();
+    const { state, dispatch } = useContext(Store);
 
-    const submitHandler = async ({ email, password }) => {
-        console.log('gg');
+    const submitHandler: SubmitHandler<any> = async ({ email, password }) => {
+        try {
+            const { data } = await axios.post('/api/users/login', {
+                email,
+                password,
+            });
+            dispatch({ type: 'USER_LOGIN', payload: data });
+            jsCookie.set('userInfo', JSON.stringify(data));
+            router.push('/');
+        } catch (err) {
+            enqueueSnackbar(err.message, { variant: 'error' });
+        }
     };
 
     const useStyles = makeStyles({

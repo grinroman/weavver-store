@@ -2,37 +2,46 @@
 @import "src/scss/variables";
 
 .root {
-    background: #fff;
-    transform: scale(1.8);
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: scale(0.85);
-    opacity: 0.8;
-    box-shadow: 0 0 5px get-color(paragraph, secondary);
+    &__loginicon {
+        background: #fff;
+        transform: scale(1.8);
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        border-radius: 50%;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        transform: scale(0.85);
+        opacity: 0.8;
+        box-shadow: 0 0 5px get-color(paragraph, secondary);
 
-    @include breakpoint("tablet") {
-        position: absolute;
-        top: 280px;
-        right: 20px;
-        width: 55px;
-        height: 55px;
-        transform: scale(1);
-    }
+        @include breakpoint("tablet") {
+            position: absolute;
+            top: 280px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            transform: scale(1);
+        }
 
-    @include breakpoint("desktop") {
-        top: 350px;
-        right: 90px;
-        width: 60px;
-        height: 60px;
-        transform: scale(1.3);
-    }
+        @include breakpoint("desktop") {
+            top: 350px;
+            right: 90px;
+            width: 60px;
+            height: 60px;
+            transform: scale(1.3);
+        }
 
-    &:hover {
-        box-shadow: 0 0 11px get-color(primary, secondary);
+        &:hover {
+            box-shadow: 0 0 11px get-color(primary, secondary);
+        }
+
+        &__authorised {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
     }
 }

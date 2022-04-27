@@ -25,7 +25,8 @@
         "**/*.tsx",
         "src/utils/routes/client.js",
         "src/utils/config.js",
-        "src/utils/context/Store.tsx"
+        "src/utils/context/Store.tsx",
+        "src/pages/api/users/register.js"
     ],
     "exclude": ["node_modules"]
 }

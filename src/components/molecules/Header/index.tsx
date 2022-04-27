@@ -51,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
     );
     const burgerRef = useRef<HTMLDivElement | null>(null);
     const { state, dispatch } = useContext(Store);
-    const { cart } = state;
+    const { cart, userInfo } = state;
 
     useBreakpoints((breakpoint) => {
         setIsMobile(breakpoint < Breakpoint.TABLET);
@@ -142,16 +142,29 @@ export const Header: React.FC<HeaderProps> = ({
                                         />
                                     </a>
                                 </Link>
-                                <Link href="/login">
-                                    <a
-                                        className={clsx(
-                                            router.asPath === '/' &&
-                                                styles['active']
-                                        )}
-                                    >
-                                        <SignIn />
-                                    </a>
-                                </Link>
+                                {userInfo ? (
+                                    <Link href="/profile">
+                                        <a
+                                            className={clsx(
+                                                router.asPath === '/' &&
+                                                    styles['active']
+                                            )}
+                                        >
+                                            <SignIn userName={userInfo.name} />
+                                        </a>
+                                    </Link>
+                                ) : (
+                                    <Link href="/login">
+                                        <a
+                                            className={clsx(
+                                                router.asPath === '/' &&
+                                                    styles['active']
+                                            )}
+                                        >
+                                            <SignIn userName={null} />
+                                        </a>
+                                    </Link>
+                                )}
                             </>
                         ) : null}
                     </div>
@@ -408,16 +421,29 @@ export const Header: React.FC<HeaderProps> = ({
                                         />
                                     </a>
                                 </Link>{' '}
-                                <Link href="/login">
-                                    <a
-                                        className={clsx(
-                                            router.asPath === '/' &&
-                                                styles['active']
-                                        )}
-                                    >
-                                        <SignIn />
-                                    </a>
-                                </Link>
+                                {userInfo ? (
+                                    <Link href="/profile">
+                                        <a
+                                            className={clsx(
+                                                router.asPath === '/' &&
+                                                    styles['active']
+                                            )}
+                                        >
+                                            <SignIn userName={userInfo.name} />
+                                        </a>
+                                    </Link>
+                                ) : (
+                                    <Link href="/login">
+                                        <a
+                                            className={clsx(
+                                                router.asPath === '/' &&
+                                                    styles['active']
+                                            )}
+                                        >
+                                            <SignIn userName={null} />
+                                        </a>
+                                    </Link>
+                                )}
                             </>
                         ) : null}
                     </nav>
