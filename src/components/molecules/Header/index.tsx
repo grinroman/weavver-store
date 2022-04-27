@@ -165,16 +165,51 @@ export const Header: React.FC<HeaderProps> = ({
                                     </a>
                                 </Link>
                                 {userInfo ? (
-                                    <Link href="/profile">
-                                        <a
-                                            className={clsx(
-                                                router.asPath === '/' &&
-                                                    styles['active']
-                                            )}
-                                        >
-                                            <SignIn userName={userInfo.name} />
-                                        </a>
-                                    </Link>
+                                    // <Link href="/profile">
+                                    //     <a
+                                    //         className={clsx(
+                                    //             router.asPath === '/' &&
+                                    //                 styles['active']
+                                    //         )}
+                                    //     >
+                                    //         <SignIn userName={userInfo.name} />
+                                    //     </a>
+                                    // </Link>
+                                    <>
+                                        <div className={styles.root__logined}>
+                                            <Button
+                                                aria-controls="simple-menu"
+                                                aria-haspopup="true"
+                                                sx={classes.navbarButton}
+                                                onClick={loginClickHandler}
+                                            >
+                                                {userInfo.name}
+                                            </Button>
+                                            <Menu
+                                                id="simple-menu"
+                                                anchorEl={anchorEl}
+                                                keepMounted
+                                                open={Boolean(anchorEl)}
+                                                onClose={loginMenuCloseHandler}
+                                            >
+                                                <MenuItem
+                                                    onClick={(e) =>
+                                                        loginMenuCloseHandler(
+                                                            e,
+                                                            '/profile'
+                                                        )
+                                                    }
+                                                >
+                                                    Профиль
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={logoutClickHandler}
+                                                >
+                                                    Выход
+                                                </MenuItem>
+                                            </Menu>
+                                        </div>
+                                    </>
                                 ) : (
                                     <Link href="/login">
                                         <a
@@ -334,25 +369,7 @@ export const Header: React.FC<HeaderProps> = ({
                                 </Typography>
                             </a>
                         </Link>
-                        <Link href="/catalog">
-                            <a
-                                className={clsx(
-                                    styles.root__links__item,
-                                    router.asPath === '/' && styles['active']
-                                )}
-                            >
-                                <Typography
-                                    preset={isMobile ? 'burger' : 'common4'}
-                                    color={
-                                        router.asPath === '/'
-                                            ? 'paragraph'
-                                            : 'body-0'
-                                    }
-                                >
-                                    Каталог товаров
-                                </Typography>
-                            </a>
-                        </Link>
+
                         <Link href="/clothes">
                             <a
                                 className={clsx(
@@ -389,20 +406,6 @@ export const Header: React.FC<HeaderProps> = ({
                 )}
                 {!isMobile && (
                     <nav className={styles.root__links}>
-                        <Link href="/catalog">
-                            <a className={styles.root__links__item}>
-                                <Typography
-                                    preset="common4"
-                                    color={
-                                        router.asPath === '/howto'
-                                            ? 'paragraph'
-                                            : 'body-0'
-                                    }
-                                >
-                                    Каталог товаров
-                                </Typography>
-                            </a>
-                        </Link>
                         <Link href="/clothes">
                             <a className={styles.root__links__item}>
                                 <Typography
