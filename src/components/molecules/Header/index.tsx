@@ -15,6 +15,9 @@ import { Basket } from 'src/components/atoms/Basket';
 import { SignIn } from 'src/components/atoms/SignIn';
 import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
 import { Store } from 'src/utils/context/Store';
+import { Button, Menu, MenuItem } from '@mui/material';
+import classes from 'src/utils/classes/classes.js';
+import jsCookie from 'js-cookie';
 
 export type HeaderProps = {
     popularRef?: MutableRefObject<HTMLDivElement | null>;
@@ -102,6 +105,25 @@ export const Header: React.FC<HeaderProps> = ({
 
     const burgerHandler = () => {
         setIsBurger(!isBurger);
+    };
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const loginMenuCloseHandler = (e: any, redirect: any) => {
+        setAnchorEl(null);
+        if (redirect) {
+            router.push(redirect);
+        }
+    };
+
+    const loginClickHandler = (e: any) => {
+        setAnchorEl(e.currentTarget);
+    };
+    const logoutClickHandler = () => {
+        setAnchorEl(null);
+        dispatch({ type: 'USER_LOGOUT' });
+        jsCookie.remove('userInfo');
+        jsCookie.remove('cartItems');
+        router.push('/');
     };
 
     return (
@@ -422,16 +444,51 @@ export const Header: React.FC<HeaderProps> = ({
                                     </a>
                                 </Link>{' '}
                                 {userInfo ? (
-                                    <Link href="/profile">
-                                        <a
-                                            className={clsx(
-                                                router.asPath === '/' &&
-                                                    styles['active']
-                                            )}
-                                        >
-                                            <SignIn userName={userInfo.name} />
-                                        </a>
-                                    </Link>
+                                    // <Link href="/profile">
+                                    //     <a
+                                    //         className={clsx(
+                                    //             router.asPath === '/' &&
+                                    //                 styles['active']
+                                    //         )}
+                                    //     >
+                                    //         <SignIn userName={userInfo.name} />
+                                    //     </a>
+                                    // </Link>
+                                    <>
+                                        <div className={styles.root__logined}>
+                                            <Button
+                                                aria-controls="simple-menu"
+                                                aria-haspopup="true"
+                                                sx={classes.navbarButton}
+                                                onClick={loginClickHandler}
+                                            >
+                                                {userInfo.name}
+                                            </Button>
+                                            <Menu
+                                                id="simple-menu"
+                                                anchorEl={anchorEl}
+                                                keepMounted
+                                                open={Boolean(anchorEl)}
+                                                onClose={loginMenuCloseHandler}
+                                            >
+                                                <MenuItem
+                                                    onClick={(e) =>
+                                                        loginMenuCloseHandler(
+                                                            e,
+                                                            '/profile'
+                                                        )
+                                                    }
+                                                >
+                                                    Профиль
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={logoutClickHandler}
+                                                >
+                                                    Выход
+                                                </MenuItem>
+                                            </Menu>
+                                        </div>
+                                    </>
                                 ) : (
                                     <Link href="/login">
                                         <a

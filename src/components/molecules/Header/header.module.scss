@@ -230,4 +230,15 @@
             transition: all $am-transition-time ease-out;
         }
     }
+
+    &__logined {
+        border-radius: 15px;
+        margin-left: 20px;
+        background-color: get-color(primary, base);
+        box-shadow: 0 0 5px get-color(primary, secondary);
+
+        &:hover {
+            box-shadow: 0 0 15px get-color(primary, secondary);
+        }
+    }
 }

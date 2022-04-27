@@ -11,7 +11,7 @@ import axios from 'axios';
 import jsCookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import { Store } from 'src/utils/context/Store';
-
+import { getError } from 'src/utils/routes/error.js';
 // type FormValues = {
 //     name: string;
 //     email: string;
@@ -57,7 +57,7 @@ const RegisterScreen: React.FC = () => {
             jsCookie.set('userInfo', JSON.stringify(data));
             router.push('/');
         } catch (err) {
-            enqueueSnackbar(err.message, { variant: 'error' });
+            enqueueSnackbar(getError(err), { variant: 'error' });
         }
     };
 

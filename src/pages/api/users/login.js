@@ -4,42 +4,38 @@ import axios from 'axios';
 import config from 'src/utils/routes/config';
 import { signToken } from 'src/utils/routes/auth';
 import { IncomingMessage, ServerResponse } from 'http';
+import client from 'src/utils/routes/client';
 
 const handler = nc();
 
 handler.post(async (req, res) => {
-    const projectId = config.projectId;
-    const dataset = config.dataset;
-    const tokenWithWriteAccess = process.env.SANITY_AUTH_TOKEN;
-    const createMutations = [
+    const user = await client.fetch(
+        `*[_type == "user" && email == $email][0]`,
         {
-            create: {
-                _type: 'user',
-                name: req.body.name,
-                email: req.body.email,
-                password: bcrypt.hashSync(req.body.password),
-                isAdmin: false,
-            },
-        },
-    ];
-    const { data } = await axios.post(
-        `https://${projectId}.api.sanity.io/v1/data/mutate/${dataset}?returnIds=true`,
-        { mutations: createMutations },
-        {
-            headers: {
-                'Content-type': 'application/json',
-                Authorization: `Bearer ${tokenWithWriteAccess}`,
-            },
+            email: req.body.email,
         }
     );
-    const userId = data.results[0].id;
-    const user = {
-        _id: userId,
-        name: req.body.name,
-        email: req.body.email,
-        isAdmin: false,
-    };
-    const token = signToken(user);
+
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+        //comparison of entered and decrypted from sanity
+        const token = signToken({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        });
+        res.send({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            token,
+        });
+    } else {
+        res.status(401).send({
+            message: 'Некорректно введена почта или пароль!',
+        });
+    }
     res.send({ ...user, token });
 });
 

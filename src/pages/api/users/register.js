@@ -4,7 +4,7 @@ import axios from 'axios';
 import config from 'src/utils/routes/config';
 import { signToken } from 'src/utils/routes/auth';
 import { IncomingMessage, ServerResponse } from 'http';
-
+import client from 'src/utils/routes/client.js';
 const handler = nc();
 
 handler.post(async (req, res) => {
@@ -22,6 +22,17 @@ handler.post(async (req, res) => {
             },
         },
     ];
+    const existUser = await client.fetch(
+        `*[_type == "user" && email == $email][0]`,
+        {
+            email: req.body.email,
+        }
+    );
+    if (existUser) {
+        return res
+            .status(401)
+            .send({ message: 'Аккаунт с такой почтой уже существует!' });
+    }
     const { data } = await axios.post(
         `https://${projectId}.api.sanity.io/v1/data/mutate/${dataset}?returnIds=true`,
         { mutations: createMutations },
