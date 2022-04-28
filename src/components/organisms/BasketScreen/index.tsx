@@ -26,13 +26,15 @@ import { getPlural } from 'src/utils/calculations/getPlural';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 
 export type TableHeader = {
     name: string;
     align: string | null;
 };
 
-export const CartScreen: React.FC = () => {
+export const BasketScreen: React.FC = () => {
+    const router = useRouter();
     const {
         state: {
             cart: { cartItems },
@@ -111,15 +113,16 @@ export const CartScreen: React.FC = () => {
                         Ваша корзина
                     </Typography>
                     <Grid container>
-                        <Grid item md={9} xs={12} spacing={1}>
+                        <Grid item spacing={1} md={9} xs={12}>
                             <TableContainer>
                                 <Table>
                                     <TableHead>
                                         <TableRow>
                                             {cartpagetitles.map(
-                                                (item: any): any => {
+                                                (item: any, i: number): any => {
                                                     return (
                                                         <TableCell
+                                                            key={i}
                                                             align={item.align.toString()}
                                                         >
                                                             <Typography
@@ -270,6 +273,9 @@ export const CartScreen: React.FC = () => {
                                             fullWidth
                                             color="secondary"
                                             variant="contained"
+                                            onClick={() => {
+                                                router.push('/shipping');
+                                            }}
                                         >
                                             Подтвердить
                                         </Button>
@@ -284,4 +290,4 @@ export const CartScreen: React.FC = () => {
     );
 };
 
-export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
+export default dynamic(() => Promise.resolve(BasketScreen), { ssr: false });

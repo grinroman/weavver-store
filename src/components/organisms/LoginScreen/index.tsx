@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import styles from './loginscreen.module.scss';
 import NextLink from 'next/link';
@@ -19,8 +19,15 @@ const LoginScreen: React.FC = () => {
         formState: { errors },
     } = useForm();
     const router = useRouter();
+    const { redirect } = router.query;
     const { enqueueSnackbar } = useSnackbar();
     const { state, dispatch } = useContext(Store);
+    const { userInfo } = state;
+    useEffect(() => {
+        if (userInfo) {
+            router.push(redirect!.toString() || '/');
+        }
+    }, [router, userInfo, redirect]);
 
     const submitHandler: SubmitHandler<any> = async ({ email, password }) => {
         try {
@@ -30,7 +37,7 @@ const LoginScreen: React.FC = () => {
             });
             dispatch({ type: 'USER_LOGIN', payload: data });
             jsCookie.set('userInfo', JSON.stringify(data));
-            router.push('/');
+            router.push(redirect!.toString() || '/');
         } catch (err) {
             enqueueSnackbar(err.message, { variant: 'error' });
         }
@@ -139,7 +146,10 @@ const LoginScreen: React.FC = () => {
                         <Typography preset="common4" color="paragraph">
                             Нет аккаунта?
                         </Typography>
-                        <NextLink href={'/register'} passHref>
+                        <NextLink
+                            href={`/register?redirect=${redirect || '/'}`}
+                            passHref
+                        >
                             <a className={styles.root__registation__link}>
                                 <Typography preset="common4" color="primary">
                                     Зарегестрироваться

@@ -1,0 +1,15 @@
+@import "src/scss/mixins";
+
+.root {
+    min-height: 65vh;
+    overflow: hidden;
+
+    &__checkoutwrapper {
+        margin-top: 5vh;
+        margin-bottom: 3vh;
+    }
+
+    &__header {
+        margin: 1% 2%;
+    }
+}

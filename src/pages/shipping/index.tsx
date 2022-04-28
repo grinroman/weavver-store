@@ -7,20 +7,21 @@ import { Footer } from 'src/components/molecules/Footer';
 import CategoryFilter from 'src/components/molecules/CategoryFilter';
 import { CatalogList } from 'src/components/organisms/CatalogList';
 import LoginScreen from 'src/components/organisms/LoginScreen';
+import ShippingScreen from 'src/components/organisms/ShippingScreen';
 
-const Login: NextPage<Response> = () => {
+const Shipping: NextPage<Response> = () => {
     return (
         <>
             <Head>
-                <title>Weavver · Авторизация</title>
+                <title>Weavver · Формирование заказа</title>
             </Head>
             <Header backTitle="< К покупкам" backHref="/catalog" />
             <Container>
-                <LoginScreen />
+                <ShippingScreen />
             </Container>
             <Footer />
         </>
     );
 };
 
-export default Login;
+export default Shipping;

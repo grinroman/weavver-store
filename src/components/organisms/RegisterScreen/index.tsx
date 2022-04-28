@@ -28,6 +28,7 @@ const RegisterScreen: React.FC = () => {
     const { state, dispatch } = useContext(Store);
     const { userInfo } = state;
     const router = useRouter();
+    const { redirect } = router.query;
     useEffect(() => {
         //if user has already loged in in is no need to show login screen again so we need to redirect user to main creen through using router
         if (userInfo) {
@@ -55,7 +56,7 @@ const RegisterScreen: React.FC = () => {
             });
             dispatch({ type: 'USER_LOGIN', payload: data });
             jsCookie.set('userInfo', JSON.stringify(data));
-            router.push('/');
+            router.push(redirect?.toString() || '/');
         } catch (err) {
             enqueueSnackbar(getError(err), { variant: 'error' });
         }
@@ -231,7 +232,10 @@ const RegisterScreen: React.FC = () => {
                         <Typography preset="common4" color="paragraph">
                             Уже есть аккаунт?
                         </Typography>
-                        <NextLink href={'/login'} passHref>
+                        <NextLink
+                            href={`/register?redirect=${redirect || '/'}`}
+                            passHref
+                        >
                             <a className={styles.root__registation__link}>
                                 <Typography preset="common4" color="primary">
                                     Вход

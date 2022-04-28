@@ -123,6 +123,7 @@ export const Header: React.FC<HeaderProps> = ({
         dispatch({ type: 'USER_LOGOUT' });
         jsCookie.remove('userInfo');
         jsCookie.remove('cartItems');
+        jsCookie.remove('shippingAdress');
         router.push('/');
     };
 
@@ -370,7 +371,7 @@ export const Header: React.FC<HeaderProps> = ({
                             </a>
                         </Link>
 
-                        <Link href="/clothes">
+                        <Link href="/catalog">
                             <a
                                 className={clsx(
                                     styles.root__links__item,
@@ -385,7 +386,7 @@ export const Header: React.FC<HeaderProps> = ({
                                             : 'body-0'
                                     }
                                 >
-                                    Одежда
+                                    К покупкам
                                 </Typography>
                             </a>
                         </Link>
@@ -406,7 +407,7 @@ export const Header: React.FC<HeaderProps> = ({
                 )}
                 {!isMobile && (
                     <nav className={styles.root__links}>
-                        <Link href="/clothes">
+                        <Link href="/catalog">
                             <a className={styles.root__links__item}>
                                 <Typography
                                     preset="common4"
@@ -416,7 +417,7 @@ export const Header: React.FC<HeaderProps> = ({
                                             : 'body-0'
                                     }
                                 >
-                                    Одежда
+                                    К покупкам
                                 </Typography>
                             </a>
                         </Link>
