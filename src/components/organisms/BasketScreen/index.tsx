@@ -27,6 +27,7 @@ import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import classes from 'src/utils/classes/classes';
 
 export type TableHeader = {
     name: string;
@@ -227,12 +228,12 @@ export const BasketScreen: React.FC = () => {
                             </TableContainer>
                         </Grid>
                         <Grid item md={3} xs={12}>
-                            <Card>
+                            <Card sx={classes.section}>
                                 <List>
                                     <ListItem>
                                         <Typography
                                             preset="common4"
-                                            color="background"
+                                            color="paragraph"
                                             className={styles.root__subtotal}
                                         >
                                             Итого (

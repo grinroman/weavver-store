@@ -124,6 +124,7 @@ export const Header: React.FC<HeaderProps> = ({
         jsCookie.remove('userInfo');
         jsCookie.remove('cartItems');
         jsCookie.remove('shippingAdress');
+        jsCookie.remove('paymentMethod');
         router.push('/');
     };
 

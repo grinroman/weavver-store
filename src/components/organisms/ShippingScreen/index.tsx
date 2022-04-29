@@ -12,7 +12,7 @@ import jsCookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import { Store } from 'src/utils/context/Store';
 import { getError } from 'src/utils/routes/error.js';
-import CheckoutWizzard from 'src/components/molecules/CheckoutWizzard/inndex';
+import CheckoutWizzard from 'src/components/molecules/CheckoutWizzard';
 // type FormValues = {
 //     name: string;
 //     email: string;

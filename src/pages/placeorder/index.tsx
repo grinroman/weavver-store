@@ -5,20 +5,22 @@ import { Header } from 'src/components/molecules/Header';
 import Head from 'next/head';
 import { Footer } from 'src/components/molecules/Footer';
 import LoginScreen from 'src/components/organisms/LoginScreen';
+import PaymentScreen from 'src/components/organisms/PaymentScreen';
+import OrderScreen from 'src/components/organisms/OrderScreen';
 
-const Login: NextPage<Response> = () => {
+const Order: NextPage<Response> = () => {
     return (
         <>
             <Head>
-                <title>Weavver · Авторизация</title>
+                <title>Weavver · Размещение заказа</title>
             </Head>
-            <Header backTitle="< К покупкам" backHref="/catalog" />
+            <Header backTitle="< Обратно к оплате" backHref="/payment" />
             <Container>
-                <LoginScreen />
+                <OrderScreen />
             </Container>
             <Footer />
         </>
     );
 };
 
-export default Login;
+export default Order;

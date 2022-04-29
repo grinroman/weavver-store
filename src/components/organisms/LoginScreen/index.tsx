@@ -25,7 +25,7 @@ const LoginScreen: React.FC = () => {
     const { userInfo } = state;
     useEffect(() => {
         if (userInfo) {
-            router.push(redirect!.toString() || '/');
+            router.push(redirect ? redirect.toString() : '/');
         }
     }, [router, userInfo, redirect]);
 
@@ -37,7 +37,7 @@ const LoginScreen: React.FC = () => {
             });
             dispatch({ type: 'USER_LOGIN', payload: data });
             jsCookie.set('userInfo', JSON.stringify(data));
-            router.push(redirect!.toString() || '/');
+            router.push(redirect ? redirect!.toString() : '/');
         } catch (err) {
             enqueueSnackbar(err.message, { variant: 'error' });
         }
