@@ -13,7 +13,7 @@ const Payment: NextPage<Response> = () => {
             <Head>
                 <title>Weavver · Оплата</title>
             </Head>
-            <Header backTitle="< К покупкам" backHref="/catalog" />
+            <Header backTitle="< К адресу доставки" backHref="/shipping" />
             <Container>
                 <PaymentScreen />
             </Container>

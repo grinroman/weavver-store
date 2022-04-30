@@ -20,6 +20,7 @@ import {
 import classes from 'src/utils/classes/classes.js';
 import Form from 'src/components/atoms/Form';
 import { Typography } from 'src/components/atoms/Typography';
+import dynamic from 'next/dynamic';
 import { makeStyles } from '@mui/styles';
 import { useSnackbar } from 'notistack';
 import axios from 'axios';
@@ -48,9 +49,8 @@ const OrderScreen: React.FC = () => {
             0
         )
     );
-    const shippingPrice = itemsPrice > 200 ? 0 : 15;
-    const taxPrice = round2(itemsPrice * 0.15);
-    const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
+    const shippingPrice = itemsPrice > 4000 ? 0 : 300;
+    const totalPrice = round2(itemsPrice + shippingPrice);
 
     useEffect(() => {
         if (!paymentMethod) {
@@ -76,7 +76,6 @@ const OrderScreen: React.FC = () => {
                     paymentMethod,
                     itemsPrice,
                     shippingPrice,
-                    taxPrice,
                     totalPrice,
                 },
                 {
@@ -354,7 +353,7 @@ const OrderScreen: React.FC = () => {
                                     fullWidth
                                     disabled={loading}
                                 >
-                                    Place Order
+                                    Разместить заказ
                                 </Button>
                             </ListItem>
                             {loading && (
@@ -370,4 +369,4 @@ const OrderScreen: React.FC = () => {
     );
 };
 
-export default OrderScreen;
+export default dynamic(() => Promise.resolve(OrderScreen), { ssr: false });

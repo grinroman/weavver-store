@@ -1,6 +1,6 @@
 export default {
     name: 'user',
-    title: 'User',
+    title: 'Клиенты',
     type: 'document',
     fields: [
         {

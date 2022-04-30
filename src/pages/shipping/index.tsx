@@ -15,7 +15,7 @@ const Shipping: NextPage<Response> = () => {
             <Head>
                 <title>Weavver · Формирование заказа</title>
             </Head>
-            <Header backTitle="< К покупкам" backHref="/catalog" />
+            <Header backTitle="< В корзину" backHref="/cart" />
             <Container>
                 <ShippingScreen />
             </Container>
