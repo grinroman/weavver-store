@@ -204,6 +204,17 @@ export const Header: React.FC<HeaderProps> = ({
                                                 >
                                                     Профиль
                                                 </MenuItem>
+
+                                                <MenuItem
+                                                    onClick={(e) =>
+                                                        loginMenuCloseHandler(
+                                                            e,
+                                                            '/order-history'
+                                                        )
+                                                    }
+                                                >
+                                                    История заказов
+                                                </MenuItem>
                                                 <MenuItem
                                                     onClick={logoutClickHandler}
                                                 >
@@ -485,6 +496,16 @@ export const Header: React.FC<HeaderProps> = ({
                                                     }
                                                 >
                                                     Профиль
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={(e) =>
+                                                        loginMenuCloseHandler(
+                                                            e,
+                                                            '/order-history'
+                                                        )
+                                                    }
+                                                >
+                                                    История заказов
                                                 </MenuItem>
                                                 <MenuItem
                                                     onClick={logoutClickHandler}

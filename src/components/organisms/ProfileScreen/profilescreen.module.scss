@@ -1,0 +1,18 @@
+@import "src/scss/mixins";
+
+.root {
+    min-height: 61.1vh;
+    overflow: hidden;
+    &__header {
+        margin: 1% 2%;
+    }
+
+    &__registation__link {
+        padding-left: 2vw;
+        text-decoration: underline get-color(primary, base);
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
