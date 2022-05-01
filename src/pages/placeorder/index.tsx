@@ -6,9 +6,9 @@ import Head from 'next/head';
 import { Footer } from 'src/components/molecules/Footer';
 import LoginScreen from 'src/components/organisms/LoginScreen';
 import PaymentScreen from 'src/components/organisms/PaymentScreen';
-import OrderScreen from 'src/components/organisms/OrderScreen';
+import PlaceOrderScreen from 'src/components/organisms/PalaceOrderScreen';
 
-const Order: NextPage<Response> = () => {
+const PlaceOrder: NextPage<Response> = () => {
     return (
         <>
             <Head>
@@ -16,11 +16,11 @@ const Order: NextPage<Response> = () => {
             </Head>
             <Header backTitle="< Обратно к оплате" backHref="/payment" />
             <Container>
-                <OrderScreen />
+                <PlaceOrderScreen />
             </Container>
             <Footer />
         </>
     );
 };
 
-export default Order;
+export default PlaceOrder;

@@ -33,7 +33,7 @@ import { getError } from 'src/utils/routes/error';
 import { CartItems } from 'src/Types/CartItems';
 import { round2 } from 'src/utils/calculations/round2';
 
-const OrderScreen: React.FC = () => {
+const PlaceOrderScreen: React.FC = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -213,7 +213,7 @@ const OrderScreen: React.FC = () => {
                                                     <TableRow key={item._key}>
                                                         <TableCell>
                                                             <NextLink
-                                                                href={`/product/${item.slug}`}
+                                                                href={`/catalog/product/${item.slug}`}
                                                                 passHref
                                                             >
                                                                 <Link>
@@ -236,7 +236,7 @@ const OrderScreen: React.FC = () => {
                                                         </TableCell>
                                                         <TableCell>
                                                             <NextLink
-                                                                href={`/product/${item.slug}`}
+                                                                href={`/catalog/product/${item.slug}`}
                                                                 passHref
                                                             >
                                                                 <Link>
@@ -369,4 +369,4 @@ const OrderScreen: React.FC = () => {
     );
 };
 
-export default dynamic(() => Promise.resolve(OrderScreen), { ssr: false });
+export default dynamic(() => Promise.resolve(PlaceOrderScreen), { ssr: false });

@@ -10,15 +10,16 @@ import client from 'src/utils/routes/client';
 import { Product } from 'src/Types/Product';
 import { LoadingSpinner } from 'src/components/atoms/LoadingSpinner';
 import { ErrorMessage } from 'src/components/atoms/ErrorMessage';
-export type PageProps = {
-    slug: any;
-};
 
 export function getServerSideProps(context: any): any {
     return {
         props: { slug: context.params.slug },
     };
 }
+
+export type PageProps = {
+    slug: any;
+};
 
 export type Response = {
     product: Product | null;

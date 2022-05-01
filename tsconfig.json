@@ -23,10 +23,13 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        "src/utils/routes/client.js",
+        "src/utils/config/client.js",
         "src/utils/config.js",
         "src/utils/context/Store.tsx",
-        "src/pages/api/users/register.js"
+        "src/pages/api/users/register.js",
+        "src/pages/api/orders/[id]/index.js",
+        "src/pages/_app.js",
+        "src/components/organisms/CreatedOrderScreen/index.js"
     ],
     "exclude": ["node_modules"]
 }

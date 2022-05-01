@@ -10,7 +10,6 @@ import productTypes from 'src/mocks/productTypes.json';
 import clsx from 'clsx';
 import { Product } from 'src/Types/Product';
 import { Typography } from 'src/components/atoms/Typography';
-import client from 'src/utils/routes/client';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
 import { urlFor, urlForThumbnail } from 'src/utils/routes/image';
