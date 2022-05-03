@@ -7,6 +7,7 @@ import { Footer } from 'src/components/molecules/Footer';
 import LoginScreen from 'src/components/organisms/LoginScreen';
 import PaymentScreen from 'src/components/organisms/PaymentScreen';
 import PlaceOrderScreen from 'src/components/organisms/PalaceOrderScreen';
+import ProfileScreen from 'src/components/organisms/ProfileScreen';
 
 const Profile: NextPage<Response> = () => {
     return (
@@ -16,7 +17,7 @@ const Profile: NextPage<Response> = () => {
             </Head>
             <Header backTitle="< Обратно к оплате" backHref="/payment" />
             <Container>
-                <PlaceOrderScreen />
+                <ProfileScreen />
             </Container>
             <Footer />
         </>
