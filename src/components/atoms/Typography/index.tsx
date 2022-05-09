@@ -17,6 +17,7 @@ export type TypographyProps = {
         | 'title2'
         | 'title3'
         | 'title4'
+        | 'title5'
         | 'saletitle1'
         | 'saletitle2'
         | 'undersaleinscript'

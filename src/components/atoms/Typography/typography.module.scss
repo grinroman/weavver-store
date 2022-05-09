@@ -53,6 +53,30 @@
         }
     }
 
+    &.title5 {
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+
+        @include breakpoint("tablet") {
+            font-size: 12px;
+            line-height: 12px;
+        }
+
+        @include breakpoint("desktop") {
+            font-size: 13px;
+            line-height: 13px;
+        }
+    }
+
+    &.common2 {
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 13px;
+    }
+
     &.common2 {
         font-size: 16px;
         font-weight: 700;
@@ -117,8 +141,8 @@
 
     &.common7 {
         font-weight: 600;
-        font-size: 8px;
-        line-height: 8px;
+        font-size: 10px;
+        line-height: 10px;
 
         @include breakpoint("tablet") {
             font-size: 13px;
@@ -126,8 +150,8 @@
         }
 
         @include breakpoint("desktop") {
-            font-size: 10px;
-            line-height: 10px;
+            font-size: 14px;
+            line-height: 14px;
         }
     }
 

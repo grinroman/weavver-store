@@ -38,7 +38,6 @@ const Catalog: NextPage<Response> = ({ products, error, loading }) => {
             <Header />
             <Container>
                 <CategoryFilter />
-                <CatalogList />
             </Container>
             <Footer />
         </>

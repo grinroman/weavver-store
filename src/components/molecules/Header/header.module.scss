@@ -16,11 +16,6 @@
         margin: 10px;
     }
 
-    // &.noNav {
-    //   padding: 0 20px;
-    //   border-bottom: 1px #f2eeeb solid;
-    // }
-
     @include breakpoint("tablet") {
         padding: 0 24px;
         border-bottom: 1px #f2eeeb solid;
@@ -114,6 +109,21 @@
                 top: 20px;
                 transition: all $am-transition-time ease-out;
             }
+        }
+    }
+
+    &__formwrapper {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 70px;
+        width: 92%;
+        @include breakpoint("tablet") {
+            position: relative;
+            width: auto;
+            top: auto;
+            margin-right: 1%;
         }
     }
 

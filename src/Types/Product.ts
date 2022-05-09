@@ -1,5 +1,5 @@
 export type Product = {
-    _key:string,
+    _key: string;
     _id: string;
     name: string;
     price: number;
@@ -13,4 +13,5 @@ export type Product = {
     rating: number;
     numReviews: number;
     countInStock: number;
+    quantity?: number;
 };

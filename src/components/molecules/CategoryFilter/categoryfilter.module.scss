@@ -3,7 +3,15 @@
 
 .root {
     padding: 10px 0 0 0;
+    min-height: 62vh;
+    margin-bottom: 6vh;
 
+    &__formwrapper {
+        display: flex;
+        width: 80%;
+        justify-content: center;
+        align-items: center;
+    }
     &__buttonelement {
         height: 30px;
         border-radius: 10px;
@@ -56,6 +64,80 @@
 
         @include breakpoint("desktop") {
             gap: 16px;
+        }
+    }
+
+    &__procesfilter {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 2vw;
+        margin: 17% 0% 3% 0%;
+        @include breakpoint("tablet") {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 2% 0% 3% 0%;
+        }
+    }
+
+    &__singlefilterwrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        @include breakpoint("tablet") {
+            flex-direction: row;
+        }
+    }
+
+    &__inscription {
+        z-index: 1000;
+        background-color: get-color(background, secondary);
+        padding: 1px;
+    }
+
+    &__resultsammount {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include breakpoint("tablet") {
+            width: auto;
+        }
+    }
+
+    &__queries {
+        width: 100%;
+        grid-column: span 2;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        @include breakpoint("tablet") {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+        }
+    }
+
+    &__thelist {
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        row-gap: 20px;
+        @include breakpoint("tablet") {
+            grid-template-columns: repeat(3, 1fr);
+            margin-right: 6vw;
+        }
+        @include breakpoint("desktop") {
+            grid-template-columns: repeat(4, 1fr);
         }
     }
 }

@@ -23,11 +23,14 @@ import { Typography } from 'src/components/atoms/Typography';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { getPlural } from 'src/utils/calculations/getPlural';
+import { cartItemsCountig } from 'src/utils/calculations/cartItemsCounting';
+import { cartItemsPriceCountig } from 'src/utils/calculations/cartItemsPriceCountig';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import classes from 'src/utils/classes/classes';
+import { getError } from 'src/utils/routes/error';
 
 export type TableHeader = {
     name: string;
@@ -42,14 +45,16 @@ export const BasketScreen: React.FC = () => {
         },
         dispatch,
     } = useContext(Store);
-    const [itemsCount, setItemsCount] = useState(
-        cartItems.reduce((a: any, c: { quantity: any }) => a + c.quantity, 0)
-    );
+    const { state } = useContext(Store);
+    const { userInfo } = state;
+    // const [itemsCount, setItemsCount] = useState(
+    //     cartItems.reduce((a: any, c: { quantity: any }) => a + c.quantity, 0)
+    // );
     const { enqueueSnackbar } = useSnackbar();
 
     const updateCartHandler = async (item: Product, quantity: number) => {
-        const { data } = await axios.get(`/api/Products/${item._id}`);
-        setItemsCount(quantity);
+        const { data } = await axios.get(`/api/Products/${item._key}`);
+        // setItemsCount(quantity);
         if (data.countInStock < quantity) {
             enqueueSnackbar('Извините, товар закончился', {
                 variant: 'error',
@@ -61,7 +66,7 @@ export const BasketScreen: React.FC = () => {
             payload: {
                 _key: item._key,
                 name: item.name,
-                countInStock: item.countInStock,
+                countInStock: item.countInStock - quantity,
                 slug: item.slug,
                 price: item.price,
                 image: item.image,
@@ -74,6 +79,28 @@ export const BasketScreen: React.FC = () => {
                 variant: 'success',
             }
         );
+    };
+
+    const confirmHandler = () => {
+        // подтверждение заказа - сброс товаров в корзину
+        cartItems.forEach(async (orderEl: Product) => {
+            try {
+                const { data } = await axios.put(
+                    `/api/${orderEl._key}/product-update`,
+                    {
+                        newCountInStock: orderEl.quantity
+                            ? orderEl.countInStock - orderEl.quantity
+                            : 0,
+                    },
+                    {
+                        headers: { authorization: `Bearer ${userInfo.token}` },
+                    }
+                );
+            } catch (err) {
+                dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
+            }
+        });
+        router.push('/shipping');
     };
 
     const removeItemHandler = (item: any) => {
@@ -236,37 +263,15 @@ export const BasketScreen: React.FC = () => {
                                             color="paragraph"
                                             className={styles.root__subtotal}
                                         >
-                                            Итого (
-                                            {cartItems.reduce(
-                                                (
-                                                    a: any,
-                                                    c: { quantity: any }
-                                                ) => a + c.quantity,
-                                                0
-                                            )}{' '}
+                                            Итого ({cartItemsCountig(cartItems)}{' '}
                                             {getPlural(
-                                                cartItems.reduce(
-                                                    (
-                                                        a: any,
-                                                        c: { quantity: any }
-                                                    ) => a + c.quantity,
-                                                    0
-                                                ),
+                                                cartItemsCountig(cartItems),
                                                 'вещь',
                                                 'вещи',
                                                 'вещей'
                                             )}
                                             ) : ₽{' '}
-                                            {cartItems.reduce(
-                                                (
-                                                    a: number,
-                                                    c: {
-                                                        quantity: number;
-                                                        price: number;
-                                                    }
-                                                ) => a + c.quantity * c.price,
-                                                0
-                                            )}
+                                            {cartItemsPriceCountig(cartItems)}
                                         </Typography>
                                     </ListItem>
                                     <ListItem>
@@ -274,9 +279,7 @@ export const BasketScreen: React.FC = () => {
                                             fullWidth
                                             color="secondary"
                                             variant="contained"
-                                            onClick={() => {
-                                                router.push('/shipping');
-                                            }}
+                                            onClick={confirmHandler}
                                         >
                                             Подтвердить
                                         </Button>

@@ -106,6 +106,7 @@ const CreatedOrderScreen = ({ orderId }) => {
             try {
                 dispatch({ type: 'FETCH_REQUEST' });
                 const { data } = await axios.get(`/api/orders/${orderId}`, {
+                    // извлечение инфы из заказа
                     headers: { authorization: `Bearer ${userInfo.token}` },
                 });
 

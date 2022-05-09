@@ -6,7 +6,6 @@ import { Typography } from 'src/components/atoms/Typography';
 import Link from 'next/link';
 import { calculateTime } from 'src/utils/calculations/calculatePrice';
 import Image from 'next/image';
-import { useNextSanityImage } from 'next-sanity-image';
 import sanityClient from '@sanity/client';
 import client from 'src/utils/routes/client';
 import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
@@ -36,12 +35,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     return (
         <Link href={'catalog/product/' + slug.current} key={slug.current}>
             <a className={styles.root}>
-                {/* <img src={imgSrc} /> */}
                 <Image
                     src={imgSrc}
                     alt={name}
-                    width={isTablet ? 160 : isMobile ? 40 : 220}
-                    height={isTablet ? 280 : isMobile ? 80 : 320}
+                    width={isTablet ? 160 : isMobile ? 40 : 210}
+                    height={isTablet ? 240 : isMobile ? 60 : 320}
                 />
                 {sale ? (
                     <div className={styles.root__saletag}>
@@ -51,7 +49,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                     </div>
                 ) : null}
                 <div className={styles.root__header}>
-                    <Typography preset="title3" color="body-0">
+                    <Typography
+                        preset="title5"
+                        color="body-0"
+                        component="div"
+                        align="center"
+                        className={styles.root__titlewrapper}
+                    >
                         {name}
                     </Typography>
                 </div>

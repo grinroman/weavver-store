@@ -29,7 +29,8 @@
         "src/pages/api/users/register.js",
         "src/pages/api/orders/[id]/index.js",
         "src/pages/_app.js",
-        "src/components/organisms/CreatedOrderScreen/index.js"
+        "src/components/organisms/CreatedOrderScreen/index.js",
+        "src/pages/api/products-update/[id].js"
     ],
     "exclude": ["node_modules"]
 }
