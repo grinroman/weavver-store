@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import {
     Button,
     Card,
@@ -52,37 +52,41 @@ export const BasketScreen: React.FC = () => {
     // );
     const { enqueueSnackbar } = useSnackbar();
 
-    const updateCartHandler = async (item: Product, quantity: number) => {
-        const { data } = await axios.get(`/api/Products/${item._key}`);
-        // setItemsCount(quantity);
-        if (data.countInStock < quantity) {
-            enqueueSnackbar('Извините, товар закончился', {
-                variant: 'error',
-            });
-            return;
-        }
-        dispatch({
-            type: 'CART_ADD_ITEM',
-            payload: {
-                _key: item._key,
-                name: item.name,
-                countInStock: item.countInStock - quantity,
-                slug: item.slug,
-                price: item.price,
-                image: item.image,
-                quantity,
-            },
-        });
-        enqueueSnackbar(
-            `Для товара ${item.name} корзина была успешно обновлена!`,
-            {
-                variant: 'success',
+    const updateCartHandler = useCallback(
+        // изменение списка товаров в текущем заказе в стейтах + куках
+        async (item: Product, quantity: number) => {
+            const { data } = await axios.get(`/api/Products/${item._key}`);
+            // setItemsCount(quantity);
+            if (data.countInStock < quantity) {
+                enqueueSnackbar('Извините, товар закончился', {
+                    variant: 'error',
+                });
+                return;
             }
-        );
-    };
+            dispatch({
+                type: 'CART_ADD_ITEM',
+                payload: {
+                    _key: item._key,
+                    name: item.name,
+                    countInStock: item.countInStock,
+                    slug: item.slug,
+                    price: item.price,
+                    image: item.image,
+                    quantity,
+                },
+            });
+            enqueueSnackbar(
+                `Для товара ${item.name} корзина была успешно обновлена!`,
+                {
+                    variant: 'success',
+                }
+            );
+        },
+        [cartItems]
+    );
 
     const confirmHandler = () => {
-        // подтверждение заказа - сброс товаров в корзину
+        //подтверждение заказа - сброс товаров в корзину
         cartItems.forEach(async (orderEl: Product) => {
             try {
                 const { data } = await axios.put(
@@ -99,12 +103,34 @@ export const BasketScreen: React.FC = () => {
             } catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
             }
+
+            // console.log(
+            //     orderEl.quantity ? orderEl.countInStock - orderEl.quantity : 0
+            // );
         });
-        router.push('/shipping');
+        // router.push('/shipping');
     };
 
-    const removeItemHandler = (item: any) => {
-        dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+    const removeItemHandler = async (removedItem: any) => {
+        console.log(removedItem.countInStock + removedItem.quantity);
+        // при удалении товара из заказа требуется вернуть кол-во товаров обпатно в бд
+        try {
+            await axios.put(
+                `/api/${removedItem._key}/product-update`,
+                {
+                    newCountInStock: removedItem.quantity
+                        ? removedItem.countInStock
+                        : 0,
+                },
+                {
+                    headers: { authorization: `Bearer ${userInfo.token}` },
+                }
+            );
+        } catch (err) {
+            dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
+        }
+
+        dispatch({ type: 'CART_REMOVE_ITEM', payload: removedItem });
     };
 
     return (
@@ -210,7 +236,10 @@ export const BasketScreen: React.FC = () => {
                                                     >
                                                         {[
                                                             ...Array(
-                                                                item.countInStock
+                                                                item.countInStock <
+                                                                    5
+                                                                    ? item.countInStock
+                                                                    : 5
                                                             ).keys(),
                                                         ].map((x) => (
                                                             <MenuItem
