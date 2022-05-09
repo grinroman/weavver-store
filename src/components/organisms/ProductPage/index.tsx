@@ -45,7 +45,9 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
 
     const onAmountChange = (isIncrease: boolean): void => {
         isIncrease
-            ? setProductAmount((productAmount) => productAmount + 1)
+            ? setProductAmount((productAmount) =>
+                  productAmount < 5 ? productAmount + 1 : productAmount
+              )
             : setProductAmount((productAmount) =>
                   productAmount ? productAmount - 1 : 1
               );
@@ -55,7 +57,9 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
         const existItem = cart.cartItems.find(
             (x: Product) => x._id === product._id
         );
-        const quantity = existItem ? existItem.quantity + 1 : 1;
+        const quantity = existItem
+            ? existItem.quantity + productAmount
+            : productAmount;
         const { data } = await axios.get(`/api/Products/${product._id}`);
         if (data.countInStock < quantity) {
             enqueueSnackbar('Извините, товара нет в наличии!', {
@@ -70,7 +74,7 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                 name: product.name,
                 countInStock: product.countInStock,
                 slug: product.slug.current,
-                price: product.price,
+                price: priceWithSale, // с учетом скидок
                 image: urlForThumbnail(product.image),
                 quantity,
             },

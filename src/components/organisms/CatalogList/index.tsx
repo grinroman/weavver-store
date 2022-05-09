@@ -17,10 +17,11 @@ import { urlForThumbnail } from 'src/utils/routes/image';
 import { useNextSanityImage } from 'next-sanity-image';
 import sanityClient from '@sanity/client';
 import { Product } from 'src/Types/Product';
+import _ from 'lodash';
 export type CategoryProps = {
     // children: React.ReactNode;
 };
-
+//FIXME: компонент не нужен
 export type AllProductsResponse = {
     products: Product[];
     error: any;
@@ -39,7 +40,15 @@ export const CatalogList: React.FC<CategoryProps> = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const products = await client.fetch(`*[_type == "product"]`);
+                let products = await client.fetch(`*[_type == "product"]`);
+                products = [
+                    ...new Map(
+                        products.map((product: Product) => [
+                            product['description'],
+                            product,
+                        ])
+                    ).values(),
+                ];
                 setProductResponse({ products, error, loading: false });
             } catch (error) {
                 setProductResponse({
