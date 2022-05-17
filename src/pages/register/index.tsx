@@ -15,11 +15,10 @@ const Catalog: NextPage<Response> = () => {
             <Head>
                 <title>Weavver · Регистрация</title>
             </Head>
-            <Header backTitle="< К покупкам" backHref="/catalog" />
+            <Header backTitle="< Вход на сайт" backHref="/login" />
             <Container>
                 <RegisterScreen />
             </Container>
-            <Footer />
         </>
     );
 };

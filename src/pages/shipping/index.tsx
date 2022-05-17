@@ -19,7 +19,6 @@ const Shipping: NextPage<Response> = () => {
             <Container>
                 <ShippingScreen />
             </Container>
-            <Footer />
         </>
     );
 };

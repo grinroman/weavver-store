@@ -1,0 +1,29 @@
+@import "src/scss/mixins";
+
+.root {
+    display: block;
+    min-height: 89vh;
+    background-image: url("https://c.tenor.com/uSZ_H_2lzksAAAAC/sugar-skull.gif");
+    background-repeat: repeat;
+    margin-top: 15%;
+    background-size: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include breakpoint("tablet") {
+        margin-top: 5.5%;
+        background-size: 20%;
+        background-repeat: round;
+    }
+    @include breakpoint("desktop") {
+        margin-top: 3.5%;
+        min-height: 88vh;
+        background-size: 15%;
+    }
+
+    &__image {
+        display: inline-block;
+    }
+    //https://static.tildacdn.com/tild3032-6466-4539-b064-393165323533/-.gif
+}

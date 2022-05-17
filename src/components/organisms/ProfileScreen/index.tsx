@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import { Store } from 'src/utils/context/Store';
 import { getError } from 'src/utils/routes/error.js';
 import dynamic from 'next/dynamic';
-
+// import classes from 'src/utils/classes/classes';
 type SubmitProps = {
     name: string;
     email: string;
@@ -73,6 +73,13 @@ const ProfileScreen: React.FC = () => {
         }
     };
 
+    const useStyles = makeStyles({
+        input: {
+            color: '#FFFFFF',
+        },
+    });
+    const classesLocal = useStyles();
+
     return (
         <div className={styles.root}>
             <Typography
@@ -97,11 +104,22 @@ const ProfileScreen: React.FC = () => {
                             }}
                             render={({ field }) => (
                                 <TextField
+                                    color="primary"
                                     variant="outlined"
                                     fullWidth
                                     id="name"
-                                    label="Имя"
-                                    inputProps={{ type: 'text' }}
+                                    label={
+                                        <Typography
+                                            preset="common4"
+                                            color="registerbutton"
+                                        >
+                                            Имя
+                                        </Typography>
+                                    }
+                                    inputProps={{
+                                        type: 'text',
+                                        className: classesLocal.input,
+                                    }}
                                     error={Boolean(errors.name)}
                                     helperText={
                                         errors.name
@@ -127,17 +145,28 @@ const ProfileScreen: React.FC = () => {
                             }}
                             render={({ field }) => (
                                 <TextField
+                                    color="primary"
                                     variant="outlined"
                                     fullWidth
                                     id="email"
-                                    label="Почта"
-                                    inputProps={{ type: 'email' }}
+                                    label={
+                                        <Typography
+                                            preset="common4"
+                                            color="registerbutton"
+                                        >
+                                            Почта
+                                        </Typography>
+                                    }
+                                    inputProps={{
+                                        type: 'email',
+                                        className: classesLocal.input,
+                                    }}
                                     error={Boolean(errors.email)}
                                     helperText={
                                         errors.email
                                             ? errors.email.type === 'pattern'
-                                                ? 'Почта записанна не корректо!'
-                                                : 'Требуется ввести почту'
+                                                ? 'Не корректно задана почта'
+                                                : 'Требуется почта'
                                             : ''
                                     }
                                     {...field}
@@ -159,14 +188,28 @@ const ProfileScreen: React.FC = () => {
                             render={({ field }) => (
                                 <TextField
                                     variant="outlined"
+                                    color="primary"
                                     fullWidth
                                     id="password"
-                                    label="Пароль"
-                                    inputProps={{ type: 'password' }}
+                                    label={
+                                        <Typography
+                                            preset="common4"
+                                            color="registerbutton"
+                                        >
+                                            Пароль
+                                        </Typography>
+                                    }
+                                    inputProps={{
+                                        type: 'password',
+                                        className: classesLocal.input,
+                                    }}
                                     error={Boolean(errors.password)}
                                     helperText={
                                         errors.password
-                                            ? 'Длина пароля более 5 символов!'
+                                            ? errors.password.type ===
+                                              'minLength'
+                                                ? 'Пароль должен быть более 5 символов'
+                                                : 'Требуется ввести пароль'
                                             : ''
                                     }
                                     {...field}
@@ -187,11 +230,22 @@ const ProfileScreen: React.FC = () => {
                             }}
                             render={({ field }) => (
                                 <TextField
+                                    color="primary"
                                     variant="outlined"
                                     fullWidth
                                     id="confirmPassword"
-                                    label="Повторите пароль"
-                                    inputProps={{ type: 'password' }}
+                                    label={
+                                        <Typography
+                                            preset="common4"
+                                            color="registerbutton"
+                                        >
+                                            Повторите подтвержление пароля
+                                        </Typography>
+                                    }
+                                    inputProps={{
+                                        type: 'password',
+                                        className: classesLocal.input,
+                                    }}
                                     error={Boolean(errors.confirmPassword)}
                                     helperText={
                                         errors.confirmPassword

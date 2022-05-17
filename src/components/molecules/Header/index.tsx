@@ -38,6 +38,7 @@ export type HeaderProps = {
     setTitle?: any;
     backTitle?: string;
     backHref?: string | '/';
+    haveSearch?: boolean;
 };
 export type TabName = 'right' | 'value' | 'key' | 'other' | 'disabled';
 
@@ -51,6 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
     backTitle,
     backHref,
     haveBasketIcon = true,
+    haveSearch,
 }) => {
     backTitle = backTitle || `\< На главную`;
     backHref = backHref || '/';
@@ -373,26 +375,28 @@ export const Header: React.FC<HeaderProps> = ({
                                 </Link>
                             )}
                         </nav>
-                        <form
-                            onSubmit={submitHandler}
-                            className={styles.root__formwrapper}
-                        >
-                            <Box sx={classes.searchForm}>
-                                <InputBase
-                                    name="query"
-                                    sx={classes.searchInput}
-                                    placeholder="Поиск товаров"
-                                    onChange={queryChangeHandler}
-                                />
-                                <IconButton
-                                    type="submit"
-                                    sx={classes.searchButton}
-                                    aria-label="search"
-                                >
-                                    <SearchIcon />
-                                </IconButton>
-                            </Box>
-                        </form>
+                        {haveSearch ? (
+                            <form
+                                onSubmit={submitHandler}
+                                className={styles.root__formwrapper}
+                            >
+                                <Box sx={classes.searchForm}>
+                                    <InputBase
+                                        name="query"
+                                        sx={classes.searchInput}
+                                        placeholder="Поиск товаров"
+                                        onChange={queryChangeHandler}
+                                    />
+                                    <IconButton
+                                        type="submit"
+                                        sx={classes.searchButton}
+                                        aria-label="search"
+                                    >
+                                        <SearchIcon />
+                                    </IconButton>
+                                </Box>
+                            </form>
+                        ) : null}
                     </>
                 )}
                 <Link href="/">
@@ -403,26 +407,29 @@ export const Header: React.FC<HeaderProps> = ({
 
                 {isMobile && (
                     <>
-                        <form
-                            onSubmit={submitHandler}
-                            className={styles.root__formwrapper}
-                        >
-                            <Box sx={classes.searchForm}>
-                                <InputBase
-                                    name="query"
-                                    sx={classes.searchInput}
-                                    placeholder="Поиск товаров"
-                                    onChange={queryChangeHandler}
-                                />
-                                <IconButton
-                                    type="submit"
-                                    sx={classes.searchButton}
-                                    aria-label="search"
-                                >
-                                    <SearchIcon />
-                                </IconButton>
-                            </Box>
-                        </form>
+                        {haveSearch ? (
+                            <form
+                                onSubmit={submitHandler}
+                                className={styles.root__formwrapper}
+                            >
+                                <Box sx={classes.searchForm}>
+                                    <InputBase
+                                        name="query"
+                                        sx={classes.searchInput}
+                                        placeholder="Поиск товаров"
+                                        onChange={queryChangeHandler}
+                                    />
+                                    <IconButton
+                                        type="submit"
+                                        sx={classes.searchButton}
+                                        aria-label="search"
+                                    >
+                                        <SearchIcon />
+                                    </IconButton>
+                                </Box>
+                            </form>
+                        ) : null}
+
                         <nav
                             ref={burgerRef}
                             className={clsx(

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useCallback, useRef, useState } from 'react';
 import { Footer } from 'src/components/molecules/Footer';
 import { Header } from 'src/components/molecules/Header';
+import LandingElement from 'src/components/molecules/LandingElement';
 import { Category } from 'src/components/organisms/Category';
 import { Container } from 'src/components/templates/Container';
 
@@ -40,8 +41,10 @@ const Home: NextPage<PageProps> = ({ data }) => {
                 scrollTo={scrollToSection}
                 setTitle={setProduct}
             />
+            <Category ref={popularRef}>
+                <LandingElement />
+            </Category>
             <Container>
-                <Category title="Популярное" ref={popularRef}></Category>
                 <Category title="Категории" ref={categoryRef}></Category>
                 <Category title="О нас" ref={aboutusRef}></Category>
                 <Category

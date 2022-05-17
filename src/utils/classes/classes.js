@@ -40,6 +40,13 @@ const classes = {
         backgroundColor: '#ffffff',
         borderRadius: 1,
     },
+    inputElements: {
+        // for inputs in register pages etc.
+        color: '#ffffff',
+        textColor: '#ffffff',
+        border: '1px solid #ffff',
+        borderRadius: 1,
+    },
     searchInput: {
         paddingLeft: 1,
         color: '#000000',
@@ -54,6 +61,9 @@ const classes = {
         '& span': {
             color: '#000000',
         },
+    },
+    inputTExtFieldColor: {
+        color: '#FFFFFF',
     },
 };
 

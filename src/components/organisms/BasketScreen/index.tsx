@@ -94,8 +94,7 @@ export const BasketScreen: React.FC = () => {
                     {
                         newCountInStock: orderEl.quantity
                             ? orderEl.countInStock - orderEl.quantity
-                            : 0,
-                    },
+                            : 0, },
                     {
                         headers: { authorization: `Bearer ${userInfo.token}` },
                     }
@@ -108,7 +107,7 @@ export const BasketScreen: React.FC = () => {
             //     orderEl.quantity ? orderEl.countInStock - orderEl.quantity : 0
             // );
         });
-        // router.push('/shipping');
+        router.push('/shipping');
     };
 
     const removeItemHandler = async (removedItem: any) => {

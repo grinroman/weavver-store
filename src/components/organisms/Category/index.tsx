@@ -5,21 +5,24 @@ import styles from './category.module.scss';
 
 export type CategoryProps = {
     children: React.ReactNode;
-    title: string;
-    isLast?: boolean;
+    title?: string;
     ref: MutableRefObject<HTMLDivElement | null>;
 };
 
 export const Category = forwardRef<HTMLDivElement, CategoryProps>(
-    ({ title, isLast, children }, ref) => {
-        const className = clsx(styles.root, isLast && styles['last']);
+    ({ title, children }, ref) => {
         return (
-            <section className={className} ref={ref}>
-                <Typography component="h2" preset="category" color="paragraph">
-                    {title}
-                </Typography>
+            <section className={styles.root} ref={ref}>
+                {title ? (
+                    <Typography
+                        component="h2"
+                        preset="category"
+                        color="paragraph"
+                    >
+                        {title}
+                    </Typography>
+                ) : null}
                 <div className={styles.root__grid}>{children}</div>
-                {!isLast && <hr className={styles.root__line} />}
             </section>
         );
     }

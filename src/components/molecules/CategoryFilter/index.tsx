@@ -107,7 +107,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
                 gQuery += `] ${order}`;
                 setState({ loading: true });
 
-                const products = await client.fetch(gQuery);
+                let products = await client.fetch(gQuery);
                 products = [
                     ...new Map(
                         products.map((product: Product) => [

@@ -79,7 +79,7 @@ const ShippingScreen: React.FC = () => {
             color: '#FFFFFF',
         },
     });
-    const classes = useStyles();
+    const classesLocal = useStyles();
 
     return (
         <div className={styles.root}>
@@ -111,8 +111,18 @@ const ShippingScreen: React.FC = () => {
                                     variant="outlined"
                                     fullWidth
                                     id="fullName"
-                                    label="ФИО получателя"
-                                    inputProps={{ type: 'fullName' }}
+                                    label={
+                                        <Typography
+                                            preset="common4"
+                                            color="primary"
+                                        >
+                                            ФИО получателя
+                                        </Typography>
+                                    }
+                                    inputProps={{
+                                        type: 'fullName',
+                                        className: classesLocal.input,
+                                    }}
                                     error={Boolean(errors.fullName)}
                                     helperText={
                                         errors.fullName
@@ -141,8 +151,18 @@ const ShippingScreen: React.FC = () => {
                                     variant="outlined"
                                     fullWidth
                                     id="address"
-                                    label="Адрес"
-                                    inputProps={{ type: 'address' }}
+                                    label={
+                                        <Typography
+                                            preset="common4"
+                                            color="primary"
+                                        >
+                                            Адрес
+                                        </Typography>
+                                    }
+                                    inputProps={{
+                                        type: 'address',
+                                        className: classesLocal.input,
+                                    }}
                                     error={Boolean(errors.address)}
                                     helperText={
                                         errors.address
@@ -171,8 +191,18 @@ const ShippingScreen: React.FC = () => {
                                     variant="outlined"
                                     fullWidth
                                     id="city"
-                                    label="Город"
-                                    inputProps={{ type: 'city' }}
+                                    label={
+                                        <Typography
+                                            preset="common4"
+                                            color="primary"
+                                        >
+                                            Город
+                                        </Typography>
+                                    }
+                                    inputProps={{
+                                        type: 'city',
+                                        className: classesLocal.input,
+                                    }}
                                     error={Boolean(errors.city)}
                                     helperText={
                                         errors.city
@@ -200,8 +230,18 @@ const ShippingScreen: React.FC = () => {
                                     variant="outlined"
                                     fullWidth
                                     id="postalCode"
-                                    label="Индекс"
-                                    inputProps={{ type: 'postalCode' }}
+                                    label={
+                                        <Typography
+                                            preset="common4"
+                                            color="primary"
+                                        >
+                                            Индекс
+                                        </Typography>
+                                    }
+                                    inputProps={{
+                                        type: 'postalCode',
+                                        className: classesLocal.input,
+                                    }}
                                     error={Boolean(errors.postalCode)}
                                     helperText={
                                         errors.postalCode
@@ -230,8 +270,18 @@ const ShippingScreen: React.FC = () => {
                                     variant="outlined"
                                     fullWidth
                                     id="postalCode"
-                                    label="Страна"
-                                    inputProps={{ type: 'country' }}
+                                    label={
+                                        <Typography
+                                            preset="common4"
+                                            color="primary"
+                                        >
+                                            Страна
+                                        </Typography>
+                                    }
+                                    inputProps={{
+                                        type: 'country',
+                                        className: classesLocal.input,
+                                    }}
                                     error={Boolean(errors.country)}
                                     helperText={
                                         errors.country

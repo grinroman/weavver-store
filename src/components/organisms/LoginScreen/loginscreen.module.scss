@@ -1,18 +1,30 @@
 @import "src/scss/mixins";
 
 .root {
-    min-height: 61.1vh;
+    min-height: 80vh;
     overflow: hidden;
-    &__header {
-        margin: 4% 2%;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 
+    &__titlewrapper {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
     &__registation__link {
-        padding-left: 2vw;
         text-decoration: underline get-color(primary, base);
+
+        @include breakpoint("tablet") {
+            padding-left: 2vw;
+        }
 
         &:hover {
             text-decoration: none;
         }
+    }
+
+    &__entrance {
+        margin-left: 2vw;
     }
 }

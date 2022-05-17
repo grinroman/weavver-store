@@ -1,5 +1,4 @@
 import styles from './logo.module.scss';
-import skull from 'public/svgs/skull-svgrepo-com.svg';
 
 export const Logo: React.FC = () => {
     return (

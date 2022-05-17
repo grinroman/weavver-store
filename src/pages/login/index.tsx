@@ -12,11 +12,10 @@ const Login: NextPage<Response> = () => {
             <Head>
                 <title>Weavver · Авторизация</title>
             </Head>
-            <Header backTitle="< К покупкам" backHref="/catalog" />
+            <Header backTitle="< В каталог" backHref="/catalog" />
             <Container>
                 <LoginScreen />
             </Container>
-            <Footer />
         </>
     );
 };

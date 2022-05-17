@@ -1,10 +1,41 @@
 @import "src/scss/mixins";
 
 .root {
-    min-height: 61.1vh;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 83vh;
     overflow: hidden;
+    overflow: hidden;
+    align-items: center;
+    flex-direction: row;
+
+    @include breakpoint("tablet") {
+    }
+
+    &__titlewrapper {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__skullwrapper {
+        width: 50%;
+        display: flex;
+        align-items: center;
+    }
+
+    &__formwrapper {
+        width: 100%;
+        margin: 5% 10% 0% 0%;
+        @include breakpoint("tablet") {
+            width: 40%;
+            margin-right: 10%;
+        }
+    }
+
     &__header {
-        margin: 1% 2%;
+        margin: 8% 2%;
+        width: 40%;
     }
 
     &__registation__link {
@@ -14,5 +45,9 @@
         &:hover {
             text-decoration: none;
         }
+    }
+
+    &__entrance {
+        margin-left: 2vw;
     }
 }

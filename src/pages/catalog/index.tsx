@@ -35,7 +35,7 @@ const Catalog: NextPage<Response> = ({ products, error, loading }) => {
             <Head>
                 <title>Weavver · Каталог товаров</title>
             </Head>
-            <Header />
+            <Header haveSearch={true} />
             <Container>
                 <CategoryFilter />
             </Container>
