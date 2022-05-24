@@ -10,9 +10,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    flex-direction: column;
     @include breakpoint("tablet") {
-        margin-top: 5.5%;
+        margin-top: 7%;
         background-size: 20%;
         background-repeat: round;
     }
@@ -22,8 +22,21 @@
         background-size: 15%;
     }
 
-    &__image {
-        display: inline-block;
+    &__wrapper {
+        position: relative;
     }
+
+    &__scrollButton {
+        position: absolute;
+        top: 60%;
+        left: 45%;
+    }
+
+    &__image {
+        & image {
+            margin-top: 70px;
+        }
+    }
+
     //https://static.tildacdn.com/tild3032-6466-4539-b064-393165323533/-.gif
 }

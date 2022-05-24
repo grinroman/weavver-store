@@ -33,6 +33,7 @@ const Product: NextPage<PageProps> = ({ slug }) => {
         loading: true,
         error: '',
     });
+    const [sizes, setSizes] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,6 +48,14 @@ const Product: NextPage<PageProps> = ({ slug }) => {
                     loading: false,
                     error: '',
                 });
+
+                const searchSizesPattern = product.description; // поик всех товраов со слагом без приставки типа -M
+                let fetchSizes = await client.fetch(
+                    `
+                *[_type == "product" && description=="${searchSizesPattern}"]{size}`
+                );
+                fetchSizes = fetchSizes.map((el: any) => el.size);
+                setSizes(fetchSizes);
             } catch (error) {
                 setOneProductResponse({
                     product: null,
@@ -69,7 +78,11 @@ const Product: NextPage<PageProps> = ({ slug }) => {
                 ) : oneProductResponse.error ? (
                     <ErrorMessage />
                 ) : (
-                    <ProductPage product={oneProductResponse.product} />
+                    <ProductPage
+                        product={oneProductResponse.product}
+                        sizes={sizes}
+                        slug={slug}
+                    />
                 )}
             </Container>
             <Footer />

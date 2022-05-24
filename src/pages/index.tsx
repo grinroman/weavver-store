@@ -15,8 +15,8 @@ const Home: NextPage<PageProps> = ({ data }) => {
     const [product, setProduct] = useState<string | null>(null);
 
     const popularRef = useRef<HTMLDivElement | null>(null);
+    const landingRef = useRef<HTMLDivElement | null>(null);
     const categoryRef = useRef<HTMLDivElement | null>(null);
-    const aboutusRef = useRef<HTMLDivElement | null>(null);
     const contactusRef = useRef<HTMLDivElement | null>(null);
 
     const scrollToSection = useCallback((section: HTMLDivElement) => {
@@ -34,19 +34,23 @@ const Home: NextPage<PageProps> = ({ data }) => {
                 <title>Weavver · Магазин</title>
             </Head>
             <Header
-                popularRef={popularRef}
+                popularRef={popularRef} //FIXME: переименовать рефы адекватно
+                landingRef={landingRef}
                 categoryRef={categoryRef}
-                aboutusRef={aboutusRef}
                 contactusRef={contactusRef}
                 scrollTo={scrollToSection}
-                setTitle={setProduct}
             />
             <Category ref={popularRef}>
-                <LandingElement />
+                <LandingElement
+                    scrollTo={scrollToSection}
+                    categoryRef={landingRef}
+                />
+            </Category>
+            <Category title="Категории" ref={landingRef}>
+                <CategorySlider />
             </Category>
             <Container>
-                <Category title="Категории" ref={categoryRef}></Category>
-                <Category title="О нас" ref={aboutusRef}></Category>
+                <Category title="О нас" ref={categoryRef}></Category>
                 <Category
                     title="Связаться с нами"
                     ref={contactusRef}

@@ -30,12 +30,11 @@ import { SubmitHandler } from 'react-hook-form';
 
 export type HeaderProps = {
     popularRef?: MutableRefObject<HTMLDivElement | null>;
+    landingRef?: MutableRefObject<HTMLDivElement | null>;
     categoryRef?: MutableRefObject<HTMLDivElement | null>;
-    aboutusRef?: MutableRefObject<HTMLDivElement | null>;
     contactusRef?: MutableRefObject<HTMLDivElement | null>;
     haveBasketIcon?: boolean;
     scrollTo?: any;
-    setTitle?: any;
     backTitle?: string;
     backHref?: string | '/';
     haveSearch?: boolean;
@@ -44,12 +43,11 @@ export type TabName = 'right' | 'value' | 'key' | 'other' | 'disabled';
 
 export const Header: React.FC<HeaderProps> = ({
     popularRef,
+    landingRef,
     categoryRef,
-    aboutusRef,
     contactusRef,
     scrollTo,
-    setTitle,
-    backTitle,
+    backTitle, //FIXME: переименовать рефы адекватно
     backHref,
     haveBasketIcon = true,
     haveSearch,
@@ -78,31 +76,27 @@ export const Header: React.FC<HeaderProps> = ({
         const handleScroll = () => {
             if (
                 popularRef &&
+                landingRef &&
                 categoryRef &&
-                aboutusRef &&
-                contactusRef &&
+                contactusRef && //FIXME: переименовать рефы адекватно
                 popularRef.current &&
+                landingRef.current &&
                 categoryRef.current &&
-                aboutusRef.current &&
                 contactusRef.current
             ) {
                 const currentHeight = window.scrollY + 94;
-                const valueHeight = categoryRef.current!.offsetTop;
-                const keyHeight = aboutusRef.current!.offsetTop;
+                const valueHeight = landingRef.current!.offsetTop;
+                const keyHeight = categoryRef.current!.offsetTop;
                 const otherHeight = contactusRef.current!.offsetTop;
 
                 if (currentHeight >= otherHeight - 300) {
                     setActiveTab('other');
-                    setTitle('Связаться');
                 } else if (currentHeight >= keyHeight - 300) {
                     setActiveTab('key');
-                    setTitle('О компании');
                 } else if (currentHeight >= valueHeight - 300) {
                     setActiveTab('value');
-                    setTitle('Аресы');
                 } else {
                     setActiveTab('right');
-                    setTitle('Популярное');
                 }
             }
         };
@@ -289,7 +283,7 @@ export const Header: React.FC<HeaderProps> = ({
                                     </button>
                                     <button
                                         onClick={() => {
-                                            scrollTo(categoryRef!.current);
+                                            scrollTo(landingRef!.current);
                                         }}
                                         className={clsx(
                                             styles.root__tab,
@@ -311,7 +305,7 @@ export const Header: React.FC<HeaderProps> = ({
                                     </button>
                                     <button
                                         onClick={() => {
-                                            scrollTo(aboutusRef!.current);
+                                            scrollTo(categoryRef!.current);
                                         }}
                                         className={clsx(
                                             styles.root__tab,
@@ -631,7 +625,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </button>
                     <button
                         onClick={() => {
-                            scrollTo(categoryRef!.current);
+                            scrollTo(landingRef!.current);
                         }}
                         className={clsx(
                             styles.root__tab,
@@ -649,7 +643,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </button>
                     <button
                         onClick={() => {
-                            scrollTo(aboutusRef!.current);
+                            scrollTo(categoryRef!.current);
                         }}
                         className={clsx(
                             styles.root__tab,

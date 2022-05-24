@@ -2,8 +2,11 @@ import React, {
     useEffect,
     useRef,
     useState,
+    MouseEvent,
     forwardRef,
     useContext,
+    SyntheticEvent,
+    ChangeEvent,
 } from 'react';
 import styles from './productpage.module.scss';
 import productTypes from 'src/mocks/productTypes.json';
@@ -18,15 +21,19 @@ import { Rating } from '@mui/material';
 import { Store } from 'src/utils/context/Store';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import client from 'src/utils/routes/client';
+import { calculateSizeActivity } from 'src/utils/calculations/calculateSizeActivity';
 export type ProductPageProps = {
     product: Product;
+    sizes: string[];
+    slug: string;
 };
 // export type ContextType = {
 //     state: any | undefined;
 //     dispatch: any;
 // };
 
-export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
+export const ProductPage: React.FC<ProductPageProps> = ({ product, sizes }) => {
     const {
         state: { cart },
         dispatch,
@@ -35,6 +42,11 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
     const [isTablet, setIsTablet] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [productAmount, setProductAmount] = useState<number>(1);
+    const [currentSlug, setCurrentSlug] = useState('');
+    const [productWithSize, setProductWithSize] = useState<Product | null>(
+        null
+    ); //продукт который я вытаскиваю по запросу на основе формируемого CurentSlug
+
     const characteristics = product.description.split(', ');
     const { enqueueSnackbar } = useSnackbar();
 
@@ -43,24 +55,59 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
         setIsMobile(breakpoint <= Breakpoint.MOBILE);
     });
 
+    const onSizeChange = (sizeName: string): void => {
+        let newSelectedSize = sizes[sizes.findIndex((el) => el === sizeName)];
+        // setproductSize(newSelectedSize);
+
+        setCurrentSlug(
+            product.slug.current.slice(0, -1) + newSelectedSize.toLowerCase()
+        );
+        // console.log(productSize);
+        console.log(currentSlug);
+    };
+
     const onAmountChange = (isIncrease: boolean): void => {
         isIncrease
             ? setProductAmount((productAmount) =>
                   productAmount < 5 ? productAmount + 1 : productAmount
               )
             : setProductAmount((productAmount) =>
-                  productAmount ? productAmount - 1 : 1
+                  productAmount - 1 ? productAmount - 1 : 1
               );
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const product = await client.fetch(
+                    ` *[_type == "product" && slug.current == $currentSlug][0]`,
+                    { currentSlug }
+                );
+
+                setProductWithSize(product);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, [currentSlug, setCurrentSlug]);
+
     const addToCartHandler = async () => {
+        if (!productWithSize) {
+            enqueueSnackbar(`Выберите размер! `, {
+                variant: 'error',
+            });
+            return;
+        }
         const existItem = cart.cartItems.find(
-            (x: Product) => x._id === product._id
+            (x: Product) => x._id === productWithSize._id
         );
         const quantity = existItem
             ? existItem.quantity + productAmount
             : productAmount;
-        const { data } = await axios.get(`/api/Products/${product._id}`);
+        const { data } = await axios.get(
+            `/api/Products/${productWithSize._id}`
+        );
         if (data.countInStock < quantity) {
             enqueueSnackbar('Извините, товара нет в наличии!', {
                 variant: 'error',
@@ -70,16 +117,16 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
         dispatch({
             type: 'CART_ADD_ITEM',
             payload: {
-                _key: product._id,
-                name: product.name,
-                countInStock: product.countInStock,
-                slug: product.slug.current,
+                _key: productWithSize._id,
+                name: productWithSize.name,
+                countInStock: productWithSize.countInStock,
+                slug: productWithSize.slug.current,
                 price: priceWithSale, // с учетом скидок
-                image: urlForThumbnail(product.image),
+                image: urlForThumbnail(productWithSize.image),
                 quantity,
             },
         });
-        enqueueSnackbar(`${product.name} добавлен в заказ! `, {
+        enqueueSnackbar(`${productWithSize.name} добавлен в заказ! `, {
             variant: 'success',
         });
     };
@@ -94,7 +141,7 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                     height={isMobile ? 400 : isTablet ? 590 : 550}
                 />
                 <div className={styles.root__rating}>
-                    <Rating value={product.rating} />
+                    {/* <Rating value={product.rating} /> */}
                     <Typography
                         preset="title4"
                         component="div"
@@ -173,6 +220,32 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                                 {product.price}₽
                             </Typography>
                         )}
+                        <ul className={styles.root__sizeswrapper}>
+                            {sizes.map((sizeButton: string, i: number) => (
+                                <li key={i}>
+                                    <button
+                                        className={clsx(
+                                            styles.root__singlebutton,
+                                            styles[
+                                                calculateSizeActivity(
+                                                    currentSlug,
+                                                    sizeButton
+                                                )
+                                            ]
+                                        )}
+                                        onClick={() => onSizeChange(sizeButton)}
+                                    >
+                                        <Typography
+                                            preset="common4"
+                                            color="paragraph"
+                                        >
+                                            {' '}
+                                            {sizeButton}
+                                        </Typography>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
                         <div className={styles.root__ammount__wrapper}>
                             <button onClick={() => onAmountChange(false)}>
                                 <Typography preset="title3" color="paragraph">

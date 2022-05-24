@@ -23,13 +23,7 @@ export type Product = {
     numReviews: any;
 };
 
-export type Response = {
-    products: Product[];
-    error: any;
-    loading: boolean;
-};
-
-const Catalog: NextPage<Response> = ({ products, error, loading }) => {
+const Catalog: NextPage = ({}) => {
     return (
         <>
             <Head>
