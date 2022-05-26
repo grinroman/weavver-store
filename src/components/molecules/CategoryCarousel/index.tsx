@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, forwardRef } from 'react';
-import styles from './landingelement.module.scss';
+import styles from './categorycarousel.module.scss';
 import Image from 'next/image';
 import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
 import { ScrollDownArrow } from 'src/components/atoms/ScrollDownArrow';
@@ -8,7 +8,7 @@ import router from 'next/router';
 
 type CategoryCarouselProps = {};
 export const CategoryCarousel: React.FC<CategoryCarouselProps> = ({}) => {
-    return <div className={styles.root}></div>;
+    return <div className={styles.root}>carousel</div>;
 };
 
 export default CategoryCarousel;

@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback, useRef, useState } from 'react';
+import CategoryCarousel from 'src/components/molecules/CategoryCarousel';
 import { Footer } from 'src/components/molecules/Footer';
 import { Header } from 'src/components/molecules/Header';
 import LandingElement from 'src/components/molecules/LandingElement';
@@ -47,7 +48,7 @@ const Home: NextPage<PageProps> = ({ data }) => {
                 />
             </Category>
             <Category title="Категории" ref={landingRef}>
-                <CategorySlider />
+                <CategoryCarousel />
             </Category>
             <Container>
                 <Category title="О нас" ref={categoryRef}></Category>
