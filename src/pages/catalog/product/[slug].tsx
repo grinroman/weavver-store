@@ -40,7 +40,7 @@ const Product: NextPage<PageProps> = ({ slug }) => {
             try {
                 const product = await client.fetch(
                     `
-            *[_type == "product" && slug.current == $slug][0]`,
+            *[_type == "product" && slug.current == $slug][0]`, //FIXME: обернуть в useCallBack
                     { slug }
                 );
                 setOneProductResponse({

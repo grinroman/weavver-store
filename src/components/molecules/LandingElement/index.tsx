@@ -5,6 +5,7 @@ import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
 import { ScrollDownArrow } from 'src/components/atoms/ScrollDownArrow';
 import { Typography } from 'src/components/atoms/Typography';
 import router from 'next/router';
+import client from 'src/utils/routes/client';
 
 type ProductCardProps = { scrollTo: any; categoryRef: any };
 export type TabName = 'right' | 'value' | 'key' | 'other' | 'disabled';

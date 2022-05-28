@@ -42,7 +42,6 @@ type FilterSerachProps = {
     sort?: any;
     searchQuery?: any;
     price?: any;
-    rating?: any;
 };
 
 export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
@@ -51,11 +50,11 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
     const [productCategories, setProductCategories] = useState('Всё');
 
     const router = useRouter();
+
     const {
         category = 'all',
         query = 'all',
         price = 'all',
-        rating = 'all',
         sort = 'default',
     } = router.query;
 
@@ -94,9 +93,6 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
                     const maxPrice = Number((price as string).split('-')[1]);
                     gQuery += ` && price >= ${minPrice} && price <= ${maxPrice}`;
                 }
-                if (rating !== 'all') {
-                    gQuery += ` && rating >= ${Number(rating)} `;
-                }
                 let order = '';
                 if (sort !== 'default') {
                     if (sort === 'lowest') order = '| order(price asc)';
@@ -122,14 +118,13 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
             }
         };
         fetchData();
-    }, [category, price, query, rating, sort]);
+    }, [category, price, query, sort]);
 
     const filterSearch = ({
         category,
         sort,
         searchQuery,
         price,
-        rating,
     }: FilterSerachProps) => {
         const path = router.pathname;
         const { query } = router;
@@ -137,7 +132,6 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
         if (category) query.category = category;
         if (sort) query.sort = sort;
         if (price) query.price = price;
-        if (rating) query.rating = rating;
         console.log(query);
         router.push({
             //redirect user to page with calculated query(where query = our needs for sort)
@@ -158,17 +152,18 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
         setPriceRange(e.target.value);
         filterSearch({ price: e.target.value });
     };
+
     //for search form
     const [querySearch, setQuerySearch] = useState('');
 
-    const queryChangeHandler: SubmitHandler<any> = (e) => {
-        setQuerySearch(e.target.value);
-    };
+    // const queryChangeHandler: SubmitHandler<any> = (e) => {
+    //     setQuerySearch(e.target.value);
+    // };
 
-    const submitHandler: SubmitHandler<any> = (e) => {
-        e.preventDefault();
-        router.push(`/catalog?query=${querySearch}`);
-    };
+    // const submitHandler: SubmitHandler<any> = (e) => {
+    //     e.preventDefault();
+    //     router.push(`/catalog?query=${querySearch}`);
+    // };
 
     return (
         <div className={styles.root}>
@@ -291,9 +286,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
                         color="paragraph"
                         component="div"
                     >
-                        {(query !== 'all' && query !== '') ||
-                            rating !== 'all' ||
-                            price !== 'all'}
+                        {(query !== 'all' && query !== '') || price !== 'all'}
                     </Typography> ? (
                         <Button
                             startIcon={<DeleteIcon />}

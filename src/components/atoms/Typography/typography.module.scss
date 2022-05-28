@@ -3,6 +3,22 @@
 .root {
     font-family: $am-font-family;
 
+    &.buttoncarousel {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 24px;
+
+        @include breakpoint("tablet") {
+            font-size: 36px;
+            line-height: 36px;
+        }
+
+        @include breakpoint("desktop") {
+            font-size: 42px;
+            line-height: 42px;
+        }
+    }
+
     &.title2 {
         font-size: 24px;
         font-weight: 700;
@@ -361,6 +377,22 @@
         }
     }
 
+    &.carouseltitle {
+        font-size: 24px;
+        line-height: 24px;
+        font-weight: 700;
+
+        @include breakpoint("tablet") {
+            font-size: 30px;
+            line-height: 30px;
+        }
+
+        @include breakpoint("desktop") {
+            font-size: 36px;
+            line-height: 36px;
+        }
+    }
+
     &.burger {
         font-size: 28px;
         line-height: 28px;
@@ -377,6 +409,10 @@
 
     &.right {
         text-align: right;
+    }
+
+    &.upper {
+        text-transform: uppercase;
     }
 
     @each $color, $_ in $am-colors {

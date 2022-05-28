@@ -9,4 +9,8 @@ function urlFor(source) {
     return ImageUrlBuilder(client).image(source).width(580).url();
 }
 
-export { urlForThumbnail, urlFor };
+function urlForCarousel(source) {
+    return ImageUrlBuilder(client).image(source).width(1920).url();
+}
+
+export { urlForThumbnail, urlFor, urlForCarousel };

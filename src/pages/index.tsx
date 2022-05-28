@@ -47,7 +47,7 @@ const Home: NextPage<PageProps> = ({ data }) => {
                     categoryRef={landingRef}
                 />
             </Category>
-            <Category title="Категории" ref={landingRef}>
+            <Category ref={landingRef}>
                 <CategoryCarousel />
             </Category>
             <Container>

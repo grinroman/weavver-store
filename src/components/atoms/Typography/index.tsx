@@ -35,10 +35,12 @@ export type TypographyProps = {
         | 'category'
         | 'burger'
         | 'modaldescription'
-        | 'listtitle1';
+        | 'listtitle1'
+        | 'carouseltitle';
     color?: Color;
     style?: CSSProperties;
     align?: 'left' | 'center' | 'right';
+    textCase?: 'upper' | 'lower' | 'none';
     className?: string;
 };
 
@@ -47,6 +49,7 @@ export const Typography: React.FC<TypographyProps> = ({
     color = 'black',
     component = 'p',
     preset = 'common1',
+    textCase = 'none',
     style,
     align,
     className: classNameFromProps,
@@ -54,6 +57,7 @@ export const Typography: React.FC<TypographyProps> = ({
     const className = clsx(
         styles.root,
         styles[preset],
+        styles[textCase],
         styles[color],
         styles[align!],
         classNameFromProps

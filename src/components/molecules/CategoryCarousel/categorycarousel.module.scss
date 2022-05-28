@@ -1,4 +1,49 @@
 @import "src/scss/mixins";
 
 .root {
+    margin-top: -40px;
+    &__slidedescription {
+        margin-top: 10%;
+    }
+
+    &__wrapper {
+        position: relative;
+
+        &__button {
+            position: absolute;
+            z-index: 1;
+            margin: 50% auto;
+            left: 0;
+            right: 0;
+            border-radius: 20px;
+            background-color: get-color(primary, base);
+            width: fit-content;
+            padding: 1% 2%;
+            box-shadow: 0 0 20px get-color(paragraph, secondary);
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+
+            &:hover {
+                animation: none;
+            }
+
+            @include breakpoint("tablet") {
+                margin: 20% auto;
+            }
+
+            @keyframes pulse {
+                0% {
+                    transform: scale(0.9);
+                }
+                70% {
+                    transform: scale(1);
+                    box-shadow: 0 0 25px get-color(paragraph, secondary);
+                }
+                100% {
+                    transform: scale(0.9);
+                    box-shadow: 0 0 20px get-color(paragraph, secondary);
+                }
+            }
+        }
+    }
 }
