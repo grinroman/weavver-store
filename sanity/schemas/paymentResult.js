@@ -9,7 +9,7 @@ export default {
             type: 'string',
         },
         {
-            title: 'Статус оплвты',
+            title: 'Статус оплаты',
             name: 'status',
             type: 'string',
         },

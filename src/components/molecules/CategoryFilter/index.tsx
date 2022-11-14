@@ -44,6 +44,10 @@ type FilterSerachProps = {
     price?: any;
 };
 
+type Category = {
+    name: string;
+};
+
 export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
     const [sortingType, setSortingType] = useState('Умолчанию'); //тип сортировки
     const [priceRange, setPriceRange] = useState('Всё');
@@ -71,7 +75,9 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const { data } = await axios.get(`/api/Products/categories`);
+                const data = await client.fetch(
+                    `*[_type == "categories"]{name}`
+                );
                 setCategories(data);
             } catch (err) {
                 console.log(err.message);
@@ -141,6 +147,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
     };
 
     const categoryHandler = (e: SelectChangeEvent) => {
+        console.log(e.target.value);
         setProductCategories(e.target.value);
         filterSearch({ category: e.target.value });
     };
@@ -156,16 +163,17 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
     //for search form
     const [querySearch, setQuerySearch] = useState('');
 
-    // const queryChangeHandler: SubmitHandler<any> = (e) => {
-    //     setQuerySearch(e.target.value);
-    // };
+    const queryChangeHandler: SubmitHandler<any> = (e) => {
+        setQuerySearch(e.target.value);
+    };
 
-    // const submitHandler: SubmitHandler<any> = (e) => {
-    //     e.preventDefault();
-    //     router.push(`/catalog?query=${querySearch}`);
-    // };
+    const submitHandler: SubmitHandler<any> = (e) => {
+        e.preventDefault();
+        router.push(`/catalog?query=${querySearch}`);
+    };
 
     return (
+        //FIXME: replace component to organisms
         <div className={styles.root}>
             <div className={styles.root__procesfilter}>
                 <Box sx={classes.filterBox}>
@@ -192,11 +200,13 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({}) => {
                         >
                             <MenuItem value="all">Всё</MenuItem>
                             {categories &&
-                                categories.map((category) => (
-                                    <MenuItem key={category} value={category}>
-                                        {category}
-                                    </MenuItem>
-                                ))}
+                                categories.map(
+                                    (category: Category, i: number) => (
+                                        <MenuItem value={category.name} key={i}>
+                                            {category.name}
+                                        </MenuItem>
+                                    )
+                                )}
                         </Select>
                     </FormControl>
                 </Box>

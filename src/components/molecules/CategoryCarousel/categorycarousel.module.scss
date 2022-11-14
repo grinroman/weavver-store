@@ -3,7 +3,11 @@
 .root {
     margin-top: -40px;
     &__slidedescription {
-        margin-top: 10%;
+        margin-bottom: 6%;
+
+        & p:first-child {
+            margin-bottom: 3%;
+        }
     }
 
     &__wrapper {
@@ -18,7 +22,7 @@
             border-radius: 20px;
             background-color: get-color(primary, base);
             width: fit-content;
-            padding: 1% 2%;
+            padding: 2% 4%;
             box-shadow: 0 0 20px get-color(paragraph, secondary);
             cursor: pointer;
             animation: pulse 1.5s infinite;
@@ -29,18 +33,20 @@
 
             @include breakpoint("tablet") {
                 margin: 20% auto;
+                padding: 1% 2%;
             }
 
             @keyframes pulse {
                 0% {
-                    transform: scale(0.9);
+                    transform: scale(0.95);
                 }
+
                 70% {
                     transform: scale(1);
                     box-shadow: 0 0 25px get-color(paragraph, secondary);
                 }
                 100% {
-                    transform: scale(0.9);
+                    transform: scale(0.95);
                     box-shadow: 0 0 20px get-color(paragraph, secondary);
                 }
             }

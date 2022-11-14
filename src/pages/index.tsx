@@ -5,6 +5,7 @@ import CategoryCarousel from 'src/components/molecules/CategoryCarousel';
 import { Footer } from 'src/components/molecules/Footer';
 import { Header } from 'src/components/molecules/Header';
 import LandingElement from 'src/components/molecules/LandingElement';
+import LandingFooter from 'src/components/molecules/LandingFooter';
 import { Category } from 'src/components/organisms/Category';
 import { Container } from 'src/components/templates/Container';
 
@@ -51,11 +52,9 @@ const Home: NextPage<PageProps> = ({ data }) => {
                 <CategoryCarousel />
             </Category>
             <Container>
-                <Category title="О нас" ref={categoryRef}></Category>
-                <Category
-                    title="Связаться с нами"
-                    ref={contactusRef}
-                ></Category>
+                <Category title="О нас" ref={categoryRef}>
+                    <LandingFooter />
+                </Category>
             </Container>
             <Footer />
         </>

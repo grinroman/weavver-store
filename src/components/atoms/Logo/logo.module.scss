@@ -4,10 +4,15 @@
     display: flex;
     width: 84px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 
-    @include breakpoint("desctop") {
-        margin-left: 0px;
+    @include breakpoint("tablet") {
+        width: 100px;
+    }
+
+    @include breakpoint("desktop") {
+        width: 160px;
+        justify-content: space-between;
     }
 
     &__logoSvg {
@@ -15,7 +20,6 @@
         transform: scale(1.2);
         height: 32px;
         scale: 1.8;
-        margin-right: 20px;
 
         @include breakpoint("desktop") {
             width: 50px;
@@ -34,11 +38,7 @@
         }
     }
 
-    @include breakpoint("tablet") {
-        width: 82px;
-    }
-
-    @include breakpoint("desktop") {
-        width: 110px;
+    .logomobile {
+        transform: scale(0.8);
     }
 }

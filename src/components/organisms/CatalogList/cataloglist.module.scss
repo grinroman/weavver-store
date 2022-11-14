@@ -10,6 +10,7 @@
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 10px;
         row-gap: 20px;
+
         @include breakpoint("tablet") {
             grid-template-columns: repeat(3, 1fr);
             margin-right: 6vw;

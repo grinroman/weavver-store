@@ -3,7 +3,7 @@ import styles from './landingelement.module.scss';
 import Image from 'next/image';
 import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
 import { ScrollDownArrow } from 'src/components/atoms/ScrollDownArrow';
-import { Typography } from 'src/components/atoms/Typography';
+
 import router from 'next/router';
 import client from 'src/utils/routes/client';
 
@@ -26,8 +26,8 @@ export const LandingElement: React.FC<ProductCardProps> = ({
             <div className={styles.root__wrapper}>
                 <Image
                     src="/images/jpgs/main-logo.jpg"
-                    width={isDesktop ? 320 : isTablet ? 400 : 90}
-                    height={isDesktop ? 395 : isTablet ? 395 : 180}
+                    width={isDesktop ? 320 : isTablet ? 400 : 45}
+                    height={isDesktop ? 395 : isTablet ? 395 : 45}
                     className={styles.root__image}
                 />
                 <button

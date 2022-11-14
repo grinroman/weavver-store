@@ -4,32 +4,34 @@
 .root {
     background: get-color(paragraph, base);
     border-radius: 2px;
-    height: 220px;
+    height: 260px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: get-color(background, secondary);
+    background: get-color(card, base);
     cursor: pointer;
     position: relative;
+    padding: 20px 0px;
+    border-radius: 10px;
 
     @include breakpoint("tablet") {
-        height: 240px;
+        height: 280px;
     }
 
     @include breakpoint("desktop") {
-        height: 320px;
+        height: 345px;
     }
 
     &:hover {
-        box-shadow: inset 10px 0px 40px 0px rgba(255, 255, 255, 0.1);
+        box-shadow: inset 5px 0px 15px 0px rgba(255, 255, 255, 0.1);
     }
 
     &__saletag {
         text-align: center;
         color: get-color(paragraph, base);
         box-shadow: 0 0 20px #eee;
-        background-image: linear-gradient(to right, #000000 0%, #53346d 85%);
+        background-image: linear-gradient(to right, #000000 0%, #53346d 70%);
         transition: 0.5s;
         position: absolute;
         display: flex;

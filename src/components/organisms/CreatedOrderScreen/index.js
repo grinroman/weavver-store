@@ -458,7 +458,7 @@ const CreatedOrderScreen = ({ orderId }) => {
                                         </Grid>
                                     </Grid>
                                 </ListItem>
-                                {!isPaid && (
+                                {!isPaid && paymentMethod != 'Наличная оплата' && (
                                     <ListItem>
                                         {isPending ? (
                                             <CircularProgress />

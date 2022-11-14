@@ -56,6 +56,13 @@ export const PaymentScreen: React.FC = ({}) => {
             router.push('/placeorder');
         }
     };
+
+    const savePaymentMethod = (method: string) => {
+        setPaymentMethod(method);
+        dispatch({ type: 'SAVE_PAYMENT_METHOD', payload: method });
+        jsCookie.set('paymentMethod', method);
+    };
+
     //FIXME: dont keep selected method17
     return (
         <div className={styles.root}>
@@ -82,7 +89,7 @@ export const PaymentScreen: React.FC = ({}) => {
                                 }}
                                 value={paymentMethod}
                                 onChange={(e) =>
-                                    setPaymentMethod(e.target.value)
+                                    savePaymentMethod(e.target.value)
                                 }
                             >
                                 <FormControlLabel
@@ -111,7 +118,7 @@ export const PaymentScreen: React.FC = ({}) => {
                                 />
                                 <FormControlLabel
                                     label="Наличная оплата"
-                                    value="Cash"
+                                    value="Наличная оплата"
                                     control={
                                         <Radio
                                             color="secondary"

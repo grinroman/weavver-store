@@ -38,6 +38,7 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product, sizes }) => {
         state: { cart },
         dispatch,
     } = useContext(Store);
+
     const priceWithSale = Math.round(product.price * (1 - product.sale / 100));
     const [isTablet, setIsTablet] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -57,13 +58,17 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product, sizes }) => {
 
     const onSizeChange = (sizeName: string): void => {
         let newSelectedSize = sizes[sizes.findIndex((el) => el === sizeName)];
-        // setproductSize(newSelectedSize);
+        console.log(newSelectedSize);
 
-        setCurrentSlug(
-            product.slug.current.slice(0, -1) + newSelectedSize.toLowerCase()
-        );
-        // console.log(productSize);
+        let newCurrentSlug = product.slug.current;
+        newCurrentSlug = newCurrentSlug.split('-');
+        newCurrentSlug.pop();
+        newCurrentSlug.push(newSelectedSize.toLocaleLowerCase());
+        newCurrentSlug = newCurrentSlug.join('-');
+        console.log(newCurrentSlug);
+        setCurrentSlug(newCurrentSlug);
         console.log(currentSlug);
+        // console.log(currentSlug);
     };
 
     const onAmountChange = (isIncrease: boolean): void => {
@@ -83,7 +88,7 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product, sizes }) => {
                     ` *[_type == "product" && slug.current == $currentSlug][0]`,
                     { currentSlug }
                 );
-
+                console.log(product);
                 setProductWithSize(product);
             } catch (error) {
                 console.log(error);

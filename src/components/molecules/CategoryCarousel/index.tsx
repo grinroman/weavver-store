@@ -48,6 +48,14 @@ export const CategoryCarousel: React.FC<CategoryCarouselProps> = ({}) => {
         fetchCategories();
     }, []);
 
+    const routeToCatalogWithQuery = (categoryName: string) => {
+        router.push({
+            //redirect user to page with calculated query(where query = our needs for sort)
+            pathname: '/catalog',
+            query: { category: categoryName },
+        });
+    };
+
     return (
         <div className={styles.root}>
             {loading ? (
@@ -61,7 +69,12 @@ export const CategoryCarousel: React.FC<CategoryCarouselProps> = ({}) => {
                             interval={3000}
                             className={styles.root__wrapper}
                         >
-                            <button className={styles.root__wrapper__button}>
+                            <button
+                                className={styles.root__wrapper__button}
+                                onClick={() =>
+                                    routeToCatalogWithQuery(category.name)
+                                }
+                            >
                                 <Typography
                                     preset="title2"
                                     color="paragraph"
@@ -81,8 +94,8 @@ export const CategoryCarousel: React.FC<CategoryCarouselProps> = ({}) => {
                                         : urlForCarousel(category.commonImage)
                                 }
                                 alt={category.name}
-                                height={isMobile ? 700 : isTablet ? 750 : 660}
-                                width={isMobile ? 450 : isTablet ? 1000 : 1480}
+                                height={isMobile ? 700 : isTablet ? 900 : 800}
+                                width={isMobile ? 450 : isTablet ? 1200 : 1800}
                             />
                             <Carousel.Caption
                                 className={styles.root__slidedescription}
@@ -94,7 +107,13 @@ export const CategoryCarousel: React.FC<CategoryCarouselProps> = ({}) => {
                                 >
                                     {category.name}
                                 </Typography>
-                                <p>{category.description}</p>
+                                <Typography
+                                    preset="title4"
+                                    color="paragraph"
+                                    align="center"
+                                >
+                                    {category.description}
+                                </Typography>
                             </Carousel.Caption>
                         </Carousel.Item>
                     ))}

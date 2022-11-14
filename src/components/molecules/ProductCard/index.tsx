@@ -38,8 +38,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 <Image
                     src={imgSrc}
                     alt={name}
-                    width={isTablet ? 160 : isMobile ? 40 : 210}
-                    height={isTablet ? 240 : isMobile ? 60 : 320}
+                    width={isTablet ? 160 : isMobile ? 30 : 210}
+                    height={isTablet ? 240 : isMobile ? 80 : 320}
                 />
                 {sale ? (
                     <div className={styles.root__saletag}>

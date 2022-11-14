@@ -182,16 +182,6 @@ export const Header: React.FC<HeaderProps> = ({
                                     </a>
                                 </Link>
                                 {userInfo ? (
-                                    // <Link href="/profile">
-                                    //     <a
-                                    //         className={clsx(
-                                    //             router.asPath === '/' &&
-                                    //                 styles['active']
-                                    //         )}
-                                    //     >
-                                    //         <SignIn userName={userInfo.name} />
-                                    //     </a>
-                                    // </Link>
                                     <>
                                         <div className={styles.root__logined}>
                                             <Button
@@ -278,7 +268,7 @@ export const Header: React.FC<HeaderProps> = ({
                                                     : 'primary'
                                             }
                                         >
-                                            Популярное
+                                            Weavver Store
                                         </Typography>
                                     </button>
                                     <button
@@ -323,28 +313,6 @@ export const Header: React.FC<HeaderProps> = ({
                                             }
                                         >
                                             Мы
-                                        </Typography>
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            scrollTo(contactusRef!.current);
-                                        }}
-                                        className={clsx(
-                                            styles.root__tab,
-                                            activeTab === 'other'
-                                                ? styles['active']
-                                                : styles['inactive']
-                                        )}
-                                    >
-                                        <Typography
-                                            preset="tab"
-                                            color={
-                                                activeTab === 'other'
-                                                    ? 'paragraph'
-                                                    : 'primary'
-                                            }
-                                        >
-                                            Связаться
                                         </Typography>
                                     </button>
                                 </>
@@ -468,7 +436,7 @@ export const Header: React.FC<HeaderProps> = ({
                                                 : 'body-0'
                                         }
                                     >
-                                        К покупкам
+                                        Каталог
                                     </Typography>
                                 </a>
                             </Link>
@@ -500,7 +468,7 @@ export const Header: React.FC<HeaderProps> = ({
                                             : 'body-0'
                                     }
                                 >
-                                    К покупкам
+                                    Каталог
                                 </Typography>
                             </a>
                         </Link>
@@ -531,16 +499,6 @@ export const Header: React.FC<HeaderProps> = ({
                                     </a>
                                 </Link>{' '}
                                 {userInfo ? (
-                                    // <Link href="/profile">
-                                    //     <a
-                                    //         className={clsx(
-                                    //             router.asPath === '/' &&
-                                    //                 styles['active']
-                                    //         )}
-                                    //     >
-                                    //         <SignIn userName={userInfo.name} />
-                                    //     </a>
-                                    // </Link>
                                     <>
                                         <div className={styles.root__logined}>
                                             <Button
@@ -657,24 +615,6 @@ export const Header: React.FC<HeaderProps> = ({
                             }
                         >
                             О нас
-                        </Typography>
-                    </button>
-                    <button
-                        onClick={() => {
-                            scrollTo(contactusRef!.current);
-                        }}
-                        className={clsx(
-                            styles.root__tab,
-                            activeTab === 'other' && styles['active']
-                        )}
-                    >
-                        <Typography
-                            preset="tab"
-                            color={
-                                activeTab === 'other' ? 'paragraph' : 'primary'
-                            }
-                        >
-                            Связаться
                         </Typography>
                     </button>
                 </nav>

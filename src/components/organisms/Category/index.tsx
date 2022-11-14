@@ -18,6 +18,7 @@ export const Category = forwardRef<HTMLDivElement, CategoryProps>(
                         component="h2"
                         preset="category"
                         color="paragraph"
+                        align="center"
                     >
                         {title}
                     </Typography>
