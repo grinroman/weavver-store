@@ -14,12 +14,9 @@ export type PageProps = {
 };
 
 const Home: NextPage<PageProps> = ({ data }) => {
-    const [product, setProduct] = useState<string | null>(null);
-
-    const popularRef = useRef<HTMLDivElement | null>(null);
-    const landingRef = useRef<HTMLDivElement | null>(null);
-    const categoryRef = useRef<HTMLDivElement | null>(null);
-    const contactusRef = useRef<HTMLDivElement | null>(null);
+    const weaverStoreRef = useRef<HTMLDivElement | null>(null);
+    const categoriesRef = useRef<HTMLDivElement | null>(null);
+    const whoWeAreRef = useRef<HTMLDivElement | null>(null);
 
     const scrollToSection = useCallback((section: HTMLDivElement) => {
         if (section) {
@@ -36,23 +33,22 @@ const Home: NextPage<PageProps> = ({ data }) => {
                 <title>Weavver · Магазин</title>
             </Head>
             <Header
-                popularRef={popularRef} //FIXME: переименовать рефы адекватно
-                landingRef={landingRef}
-                categoryRef={categoryRef}
-                contactusRef={contactusRef}
+                weaverStoreRef={weaverStoreRef} //FIXME: переименовать рефы адекватно
+                categoriesRef={categoriesRef}
+                whoWeAreRef={whoWeAreRef}
                 scrollTo={scrollToSection}
             />
-            <Category ref={popularRef}>
+            <Category ref={weaverStoreRef}>
                 <LandingElement
                     scrollTo={scrollToSection}
-                    categoryRef={landingRef}
+                    weaverStoreRef={weaverStoreRef}
                 />
             </Category>
-            <Category ref={landingRef}>
+            <Category ref={categoriesRef}>
                 <CategoryCarousel />
             </Category>
             <Container>
-                <Category title="О нас" ref={categoryRef}>
+                <Category title="О нас" ref={whoWeAreRef}>
                     <LandingFooter />
                 </Category>
             </Container>

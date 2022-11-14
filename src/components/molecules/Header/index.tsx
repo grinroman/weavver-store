@@ -29,9 +29,9 @@ import jsCookie from 'js-cookie';
 import { SubmitHandler } from 'react-hook-form';
 
 export type HeaderProps = {
-    popularRef?: MutableRefObject<HTMLDivElement | null>;
-    landingRef?: MutableRefObject<HTMLDivElement | null>;
-    categoryRef?: MutableRefObject<HTMLDivElement | null>;
+    weaverStoreRef?: MutableRefObject<HTMLDivElement | null>;
+    categoriesRef?: MutableRefObject<HTMLDivElement | null>;
+    whoWeAreRef?: MutableRefObject<HTMLDivElement | null>;
     contactusRef?: MutableRefObject<HTMLDivElement | null>;
     haveBasketIcon?: boolean;
     scrollTo?: any;
@@ -39,15 +39,14 @@ export type HeaderProps = {
     backHref?: string | '/';
     haveSearch?: boolean;
 };
-export type TabName = 'right' | 'value' | 'key' | 'other' | 'disabled';
+export type TabName = 'weaverStore' | 'categories' | 'whoWeAre' | 'disabled';
 
 export const Header: React.FC<HeaderProps> = ({
-    popularRef,
-    landingRef,
-    categoryRef,
-    contactusRef,
+    weaverStoreRef,
+    categoriesRef,
+    whoWeAreRef,
     scrollTo,
-    backTitle, //FIXME: переименовать рефы адекватно
+    backTitle,
     backHref,
     haveBasketIcon = true,
     haveSearch,
@@ -59,7 +58,7 @@ export const Header: React.FC<HeaderProps> = ({
     const [isTablet, setIsTablet] = useState<boolean>(false);
     const [isBurger, setIsBurger] = useState<boolean>(false);
     const [activeTab, setActiveTab] = useState<TabName>(
-        router.asPath === '/' ? 'right' : 'disabled'
+        router.asPath === '/' ? 'weaverStore' : 'disabled'
     );
     const burgerRef = useRef<HTMLDivElement | null>(null);
     const { state, dispatch } = useContext(Store);
@@ -75,28 +74,24 @@ export const Header: React.FC<HeaderProps> = ({
     useEffect(() => {
         const handleScroll = () => {
             if (
-                popularRef &&
-                landingRef &&
-                categoryRef &&
-                contactusRef && //FIXME: переименовать рефы адекватно
-                popularRef.current &&
-                landingRef.current &&
-                categoryRef.current &&
-                contactusRef.current
+                weaverStoreRef &&
+                categoriesRef &&
+                whoWeAreRef &&
+                weaverStoreRef.current &&
+                categoriesRef.current &&
+                whoWeAreRef.current
             ) {
                 const currentHeight = window.scrollY + 94;
-                const valueHeight = landingRef.current!.offsetTop;
-                const keyHeight = categoryRef.current!.offsetTop;
-                const otherHeight = contactusRef.current!.offsetTop;
+                const weaverStoreHeight = weaverStoreRef.current!.offsetTop;
+                const categoriesHeight = categoriesRef.current!.offsetTop;
+                const whoWeAreHeight = whoWeAreRef.current!.offsetTop;
 
-                if (currentHeight >= otherHeight - 300) {
-                    setActiveTab('other');
-                } else if (currentHeight >= keyHeight - 300) {
-                    setActiveTab('key');
-                } else if (currentHeight >= valueHeight - 300) {
-                    setActiveTab('value');
+                if (currentHeight >= whoWeAreHeight - 300) {
+                    setActiveTab('whoWeAre');
+                } else if (currentHeight >= categoriesHeight - 300) {
+                    setActiveTab('categories');
                 } else {
-                    setActiveTab('right');
+                    setActiveTab('weaverStore');
                 }
             }
         };
@@ -135,7 +130,7 @@ export const Header: React.FC<HeaderProps> = ({
     const [querySearch, setQuerySearch] = useState('');
 
     const queryChangeHandler: SubmitHandler<any> = (e) => {
-        setQuerySearch(e.target.value);
+        setQuerySearch(e.target.categories);
     };
 
     const submitHandler: SubmitHandler<any> = (e) => {
@@ -168,12 +163,7 @@ export const Header: React.FC<HeaderProps> = ({
                         {haveBasketIcon ? (
                             <>
                                 <Link href="/cart">
-                                    <a
-                                        className={clsx(
-                                            router.asPath === '/' &&
-                                                styles['active']
-                                        )}
-                                    >
+                                    <a>
                                         <Basket
                                             itemsQuantity={
                                                 cart.cartItems.length
@@ -251,11 +241,11 @@ export const Header: React.FC<HeaderProps> = ({
                                 <>
                                     <button
                                         onClick={() => {
-                                            scrollTo(popularRef!.current);
+                                            scrollTo(weaverStoreRef!.current);
                                         }}
                                         className={clsx(
                                             styles.root__tab,
-                                            activeTab === 'right'
+                                            activeTab === 'weaverStore'
                                                 ? styles['active']
                                                 : styles['inactive']
                                         )}
@@ -263,7 +253,7 @@ export const Header: React.FC<HeaderProps> = ({
                                         <Typography
                                             preset="tab"
                                             color={
-                                                activeTab === 'right'
+                                                activeTab === 'weaverStore'
                                                     ? 'paragraph'
                                                     : 'primary'
                                             }
@@ -273,11 +263,11 @@ export const Header: React.FC<HeaderProps> = ({
                                     </button>
                                     <button
                                         onClick={() => {
-                                            scrollTo(landingRef!.current);
+                                            scrollTo(categoriesRef!.current);
                                         }}
                                         className={clsx(
                                             styles.root__tab,
-                                            activeTab === 'value'
+                                            activeTab === 'categories'
                                                 ? styles['active']
                                                 : styles['inactive']
                                         )}
@@ -285,7 +275,7 @@ export const Header: React.FC<HeaderProps> = ({
                                         <Typography
                                             preset="tab"
                                             color={
-                                                activeTab === 'value'
+                                                activeTab === 'categories'
                                                     ? 'paragraph'
                                                     : 'primary'
                                             }
@@ -295,11 +285,11 @@ export const Header: React.FC<HeaderProps> = ({
                                     </button>
                                     <button
                                         onClick={() => {
-                                            scrollTo(categoryRef!.current);
+                                            scrollTo(whoWeAreRef!.current);
                                         }}
                                         className={clsx(
                                             styles.root__tab,
-                                            activeTab === 'key'
+                                            activeTab === 'whoWeAre'
                                                 ? styles['active']
                                                 : styles['inactive']
                                         )}
@@ -307,7 +297,7 @@ export const Header: React.FC<HeaderProps> = ({
                                         <Typography
                                             preset="tab"
                                             color={
-                                                activeTab === 'key'
+                                                activeTab === 'whoWeAre'
                                                     ? 'paragraph'
                                                     : 'primary'
                                             }
@@ -565,17 +555,19 @@ export const Header: React.FC<HeaderProps> = ({
                 <nav className={styles.root__nav__mobile}>
                     <button
                         onClick={() => {
-                            scrollTo(popularRef!.current);
+                            scrollTo(weaverStoreRef!.current);
                         }}
                         className={clsx(
                             styles.root__tab,
-                            activeTab === 'right' && styles['active']
+                            activeTab === 'weaverStore' && styles['active']
                         )}
                     >
                         <Typography
                             preset="tab"
                             color={
-                                activeTab === 'right' ? 'paragraph' : 'primary'
+                                activeTab === 'weaverStore'
+                                    ? 'paragraph'
+                                    : 'primary'
                             }
                         >
                             Популярное
@@ -583,38 +575,22 @@ export const Header: React.FC<HeaderProps> = ({
                     </button>
                     <button
                         onClick={() => {
-                            scrollTo(landingRef!.current);
+                            scrollTo(categoriesRef!.current);
                         }}
                         className={clsx(
                             styles.root__tab,
-                            activeTab === 'value' && styles['active']
+                            activeTab === 'categories' && styles['active']
                         )}
                     >
                         <Typography
                             preset="tab"
                             color={
-                                activeTab === 'value' ? 'paragraph' : 'primary'
+                                activeTab === 'categories'
+                                    ? 'paragraph'
+                                    : 'primary'
                             }
                         >
                             Категории
-                        </Typography>
-                    </button>
-                    <button
-                        onClick={() => {
-                            scrollTo(categoryRef!.current);
-                        }}
-                        className={clsx(
-                            styles.root__tab,
-                            activeTab === 'key' && styles['active']
-                        )}
-                    >
-                        <Typography
-                            preset="tab"
-                            color={
-                                activeTab === 'key' ? 'paragraph' : 'primary'
-                            }
-                        >
-                            О нас
                         </Typography>
                     </button>
                 </nav>

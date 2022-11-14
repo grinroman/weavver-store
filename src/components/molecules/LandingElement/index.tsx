@@ -4,14 +4,11 @@ import Image from 'next/image';
 import { Breakpoint, useBreakpoints } from 'src/hooks/useBreakpoints';
 import { ScrollDownArrow } from 'src/components/atoms/ScrollDownArrow';
 
-import router from 'next/router';
-import client from 'src/utils/routes/client';
-
-type ProductCardProps = { scrollTo: any; categoryRef: any };
+type ProductCardProps = { scrollTo: any; weaverStoreRef: any };
 export type TabName = 'right' | 'value' | 'key' | 'other' | 'disabled';
 export const LandingElement: React.FC<ProductCardProps> = ({
     scrollTo,
-    categoryRef,
+    weaverStoreRef,
 }) => {
     const [isDesktop, setIsDesktop] = useState<boolean>(false);
     const [isTablet, setIsTablet] = useState<boolean>(false);
@@ -33,7 +30,7 @@ export const LandingElement: React.FC<ProductCardProps> = ({
                 <button
                     className={styles.root__scrollButton}
                     onClick={() => {
-                        scrollTo(categoryRef!.current); //FIXME: переименовать рефы адекватно
+                        scrollTo(weaverStoreRef!.current); //FIXME: переименовать рефы адекватно
                     }}
                 >
                     <ScrollDownArrow />
